@@ -1,0 +1,546 @@
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+
+     <esi:assign name="photoId" value="$(QUERY_STRING{'photoId'})"/>
+     <esi:choose>
+       <esi:when test="$(REQUEST_PATH) matches '''(.*)/(article-[a-zA-Z0-9]*|articles|video-gallery|videos|photo-gallery|photos|roster|coaches|event|audio|cheerleaders|staff)/([^/]*)/([^/]*)(.*)'''" matchname="matchValues">
+         <esi:assign name="section" value="$substr($(matchValues{1}), 1)"/>
+         <esi:assign name="requestUri" value="$(matchValues{1})"/>
+         <esi:assign name="pagetype" value="$(matchValues{2})"/>
+         <esi:assign name="seoTitle" value="$(matchValues{3})"/>
+         <esi:assign name="id" value="$(matchValues{4})"/>
+       </esi:when>
+       <esi:otherwise>
+         <esi:assign name="id" value="$(QUERY_STRING{'id'})"/>
+         <esi:assign name="requestUri" value="$(REQUEST_PATH)"/>
+       </esi:otherwise>
+     </esi:choose>
+     <esi:assign name="channelName" value="''" />
+     <esi:assign name="channelKey" value="''" />
+     <esi:choose>
+        <esi:when test="$exists(seoTitle) && $(seoTitle)=='channel'">
+            <esi:assign name="channelName" value="$(id)" />
+            <esi:assign name="id" value="''" />
+                 <esi:choose>
+                    <esi:when test="$(pagetype)=='videos'">
+                        <esi:assign name="mediaType" value="VIDEO" />
+                    </esi:when>
+                   <esi:otherwise>
+                         <esi:assign name="mediaType" value="AUDIO" />
+                    </esi:otherwise>
+                 </esi:choose>
+        </esi:when>
+        <esi:when test="$exists($(QUERY_STRING{'channelName'}))">
+            <esi:assign name="channelName" value="$(QUERY_STRING{'channelName'})" />
+                 <esi:choose>
+                    <esi:when test="$(pagetype)=='videos'">
+                        <esi:assign name="mediaType" value="VIDEO" />
+                    </esi:when>
+                   <esi:otherwise>
+                         <esi:assign name="mediaType" value="AUDIO" />
+                    </esi:otherwise>
+                 </esi:choose>
+       </esi:when>
+    <esi:otherwise>
+        <esi:eval src="/cda-web/esi-audio-video-channel-by-id.htm?id=$(id)" dca="none" onerror="continue"/>
+    </esi:otherwise>
+</esi:choose>
+
+<esi:assign name="channelFragment" value="$lower($replace($(channelName), ' ', '-'))" />
+
+
+
+     
+            
+            <esi:try>
+                <esi:attempt>
+                    <esi:include src="/assets/nflhtml/html-namespace.html" />
+                </esi:attempt>
+                <esi:except>
+                    <html xmlns="http://www.w3.org/1999/xhtml">
+                </esi:except>
+            </esi:try>
+            
+        <head><META http-equiv="Content-Type" content="text/html; charset=UTF-8"><!--ls:begin[stylesheet]--><style type="text/css">.centerComponents
+{
+  margin:auto;
+  text-align:left;
+}
+
+#element1
+{
+  width:980px;
+}
+
+#element2
+{
+  width:980px;
+  display:inline;
+  float:left;
+}
+
+#c1370510460183
+{
+  width:728px;
+  min-height:90px;
+  height:auto !important;
+  height:90px;
+  margin:0 0 0 10px;
+  display:inline;
+  float:left;
+  background-color:#FFFFFF;
+}
+
+#c1370510460182
+{
+  width:220px;
+  min-height:90px;
+  height:auto !important;
+  height:90px;
+  margin:0 10px 0 12px;
+  display:inline;
+  float:left;
+  background-color:#FFFFFF;
+}
+
+#element3
+{
+  width:980px;
+  display:inline;
+  float:left;
+}
+
+#c1370510460189
+{
+  width:475px;
+  min-height:122px;
+  height:auto !important;
+  height:122px;
+  margin:5px 0 0 10px;
+  display:inline;
+  float:left;
+  background-color:#ffffff;
+}
+
+#element4
+{
+  width:355px;
+  margin:0 10px 0 130px;
+  display:inline;
+  float:left;
+}
+
+#element5
+{
+  width:355px;
+  display:inline;
+  float:left;
+}
+
+#c1370510460193
+{
+  width:222px;
+  min-height:20px;
+  height:auto !important;
+  height:20px;
+  margin:5px 0 0 0;
+  display:inline;
+  float:left;
+  background-color:#ffffff;
+}
+
+#c1370510460197
+{
+  width:133px;
+  min-height:20px;
+  height:auto !important;
+  height:20px;
+  margin:5px 0 0 0;
+  display:inline;
+  float:left;
+  background-color:#ffffff;
+}
+
+#c1370510460195
+{
+  width:200px;
+  min-height:22px;
+  height:auto !important;
+  height:22px;
+  margin:20px 0 0 155px;
+  display:inline;
+  float:left;
+  background-color:#FFFFFF;
+}
+
+#c1370510460194
+{
+  width:300px;
+  min-height:37px;
+  height:auto !important;
+  height:37px;
+  margin:23px 0 0 55px;
+  display:inline;
+  float:left;
+  background-color:#ffffff;
+}
+
+#c1370510460192
+{
+  width:960px;
+  min-height:38px;
+  height:auto !important;
+  height:38px;
+  margin:0 10px 0 10px;
+  display:inline;
+  float:left;
+  background-color:#ffffff;
+}
+
+#element6
+{
+  width:980px;
+  display:inline;
+  float:left;
+}
+
+#c1370510460196
+{
+  width:510px;
+  min-height:28px;
+  height:auto !important;
+  height:28px;
+  margin:0 0 0 10px;
+  display:inline;
+  float:left;
+  background-color:#FFFFFF;
+}
+
+#c1370510460191
+{
+  width:210px;
+  min-height:28px;
+  height:auto !important;
+  height:28px;
+  display:inline;
+  float:left;
+  background-color:#ffffff;
+}
+
+#c1370510460190
+{
+  width:240px;
+  min-height:28px;
+  height:auto !important;
+  height:28px;
+  margin:0 10px 0 0;
+  display:inline;
+  float:left;
+  background-color:#ffffff;
+}
+
+#c1370510460184
+{
+  width:970px;
+  min-height:37px;
+  height:auto !important;
+  height:37px;
+  margin:0 0 0 10px;
+  display:inline;
+  float:left;
+}
+
+#c1370510460181
+{
+  width:970px;
+  min-height:40px;
+  height:auto !important;
+  height:40px;
+  margin:0 0 0 10px;
+  display:inline;
+  float:left;
+  background-color:#FFFFFF;
+}
+
+#element7
+{
+  width:980px;
+  display:inline;
+  float:left;
+}
+
+#element8
+{
+  width:660px;
+  margin:0 0 0 10px;
+  display:inline;
+  float:left;
+}
+
+#element9
+{
+  width:660px;
+  display:inline;
+  float:left;
+}
+
+#c1370510460175
+{
+  width:320px;
+  min-height:40px;
+  height:auto !important;
+  height:40px;
+  display:inline;
+  float:left;
+  background-color:#ffffff;
+}
+
+#c1370510460187
+{
+  width:340px;
+  min-height:40px;
+  height:auto !important;
+  height:40px;
+  display:inline;
+  float:left;
+  background-color:#FFFFFF;
+}
+
+#c1370510460176
+{
+  width:660px;
+  min-height:200px;
+  height:auto !important;
+  height:200px;
+  display:inline;
+  float:left;
+  background-color:#FFFFFF;
+}
+
+#element10
+{
+  width:660px;
+  display:inline;
+  float:left;
+}
+
+#c1370510460185
+{
+  width:330px;
+  min-height:390px;
+  height:auto !important;
+  height:390px;
+  display:inline;
+  float:left;
+  background-color:#FFFFFF;
+}
+
+#c1370510460177
+{
+  width:330px;
+  min-height:390px;
+  height:auto !important;
+  height:390px;
+  display:inline;
+  float:left;
+  background-color:#FFFFFF;
+}
+
+#c1370510460188
+{
+  width:660px;
+  min-height:340px;
+  height:auto !important;
+  height:340px;
+  display:inline;
+  float:left;
+  background-color:#FFFFFF;
+}
+
+#element11
+{
+  width:310px;
+  display:inline;
+  float:left;
+}
+
+#c1370510460180
+{
+  width:310px;
+  min-height:260px;
+  height:auto !important;
+  height:260px;
+  display:inline;
+  float:left;
+  background-color:#FFFFFF;
+}
+
+#c1380103321079
+{
+  width:310px;
+  min-height:150px;
+  height:auto !important;
+  height:150px;
+  display:inline;
+  float:left;
+  background-color:#FFFFFF;
+}
+
+#c1370510460186
+{
+  width:310px;
+  min-height:170px;
+  height:auto !important;
+  height:170px;
+  display:inline;
+  float:left;
+  background-color:#FFFFFF;
+}
+
+#c1370510460178
+{
+  width:310px;
+  min-height:340px;
+  height:auto !important;
+  height:340px;
+  display:inline;
+  float:left;
+  background-color:#FFFFFF;
+}
+
+#c1370510460198
+{
+  width:310px;
+  min-height:50px;
+  height:auto !important;
+  height:50px;
+  display:inline;
+  float:left;
+  background-color:#FFFFFF;
+}
+
+#c1370510460179
+{
+  width:980px;
+  min-height:200px;
+  height:auto !important;
+  height:200px;
+  display:inline;
+  float:left;
+  background-color:#FFFFFF;
+}
+
+#c1370510460183{background-color: transparent; min-height: 0;}#c1370510460182{background-color: transparent; min-height: 0;}#c1370510460189{background-color: transparent; min-height: 0;}#c1370510460193{background-color: transparent; min-height: 0;}#c1370510460197{background-color: transparent; min-height: 0;}#c1370510460195{background-color: transparent; min-height: 0;}#c1370510460194{background-color: transparent; min-height: 0;}#c1370510460192{background-color: transparent; min-height: 0;}#c1370510460196{background-color: transparent; min-height: 0;}#c1370510460191{background-color: transparent; min-height: 0;}#c1370510460190{background-color: transparent; min-height: 0;}#c1370510460184{background-color: transparent; min-height: 0;}#c1370510460181{background-color: transparent; min-height: 0;}#c1370510460175{background-color: transparent; min-height: 0;}#c1370510460187{background-color: transparent; min-height: 0;}#c1370510460176{background-color: transparent; min-height: 0;}#c1370510460185{background-color: transparent; min-height: 0;}#c1370510460177{background-color: transparent; min-height: 0;}#c1370510460188{background-color: transparent; min-height: 0;}#c1370510460180{background-color: transparent; min-height: 0;}#c1380103321079{background-color: transparent; min-height: 0;}#c1370510460186{background-color: transparent; min-height: 0;}#c1370510460178{background-color: transparent; min-height: 0;}#c1370510460198{background-color: transparent; min-height: 0;}#c1370510460179{background-color: transparent; min-height: 0;}</style><!--ls:end[stylesheet]--><!--ls:begin[meta-keywords]--><meta name="keywords" content=""><!--ls:end[meta-keywords]--><!--ls:begin[meta-vpath]--><meta name="vpath" content=""><!--ls:end[meta-vpath]--><esi:include src="/cda-web/head.htm?css=assets/css/gameday-all-min.css&css=assets/css/custmodborderwhitebg.css&css=assets/css/custmodborderweather.css&css=assets/css/gameday-top-module.css&id=$(id)&pageType=$(pagetype)&requestPath=$(REQUEST_PATH)&photoId=$(photoId)&mediaType=$(mediaType)" onerror="continue"/><!--ls:begin[head-injection]--><!--ls:end[head-injection]--><!--ls:begin[script]--><!--ls:end[script]--></head><body><!--ls:begin[body]--><div class="gbl-wrp-1"><div class="gbl-wrp-2"><div class="gbl-wrp-3"><div class="gbl-wrp-4"><div class="gbl-wrp-5"><div id="element1" class="centerComponents"><div id="element2"><div class="iw_component" id="c1370510460183"><div xmlns:esi="http://www.edge-delivery.org/esi/1.0">
+<input value="" type="hidden">
+<esi:include onerror="continue" src="/cda-web/advertisement-module.htm?id=2abc81c3-0ae8-487e-b3a2-47147e38cfa3&"/>
+</div>
+</div><div class="iw_component" id="c1370510460182"><div xmlns:esi="http://www.edge-delivery.org/esi/1.0">
+<input value="" type="hidden">
+<esi:include onerror="continue" src="/cda-web/advertisement-module.htm?id=c4d8e240-c495-4eb9-9b93-49407039673b&"/>
+</div>
+</div></div><div id="element3"><div class="iw_component" id="c1370510460189"><div xmlns:esi="http://www.edge-delivery.org/esi/1.0">
+<input value="" type="hidden">
+<esi:include onerror="continue" src="/cda-web/custom-module.htm?id=cf3e6dcb-91f3-420e-9117-f385bc6a3244&displayName=club-logo"/>
+</div>
+</div><div id="element4"><div id="element5"><div class="iw_component" id="c1370510460193"><div xmlns:esi="http://www.edge-delivery.org/esi/1.0">
+<input value="" type="hidden">
+<esi:include onerror="continue" src="/cda-web/custom-module.htm?id=f04699a7-dba5-4c4c-a65d-c059e954a6b7&displayName=header-bg"/>
+</div>
+</div><div class="iw_component" id="c1370510460197"><div class="gbl-nfl-network">
+<div class="nfl-network-btn">
+<a href="#" class="gbl-nfl-network-btn"></a>
+</div>
+</div>
+</div></div><div class="iw_component" id="c1370510460195"><div xmlns:esi="http://www.edge-delivery.org/esi/1.0">
+<input value="" type="hidden">
+<esi:include onerror="continue" src="/cda-web/custom-module.htm?id=fe91099c-9216-4d0d-94d2-27aa38017651&&cssID=hp-hdr-powered-by"/>
+</div>
+</div><div class="iw_component" id="c1370510460194"><div xmlns:esi="http://www.edge-delivery.org/esi/1.0">
+<input value="" type="hidden">
+<esi:include onerror="continue" src="/cda-web/custom-module.htm?id=3325042e-314e-4e88-9362-4b74dbb5a888&"/>
+</div>
+</div></div></div><div class="iw_component" id="c1370510460192"><div xmlns:esi="http://www.edge-delivery.org/esi/1.0">
+<input value="" type="hidden">
+<esi:include onerror="continue" src="/cda-web/global-navigation-module.htm?requestUri=$(REQUEST_PATH)"/>
+</div>
+</div><div id="element6"><div class="iw_component" id="c1370510460196"><div xmlns:esi="http://www.edge-delivery.org/esi/1.0">
+<input value="" type="hidden">
+<esi:include onerror="continue" src="/cda-web/event-calendar-module.htm?&cssID=event-detail-collapased&type=online&maxResults=7&vv=live-collapsed"/>
+</div>
+</div><div class="iw_component" id="c1370510460191"><div xmlns:esi="http://www.edge-delivery.org/esi/1.0">
+<input value="" type="hidden">
+<esi:include onerror="continue" src="/cda-web/custom-module.htm?id=9126a7d0-3959-438d-b02f-13cc459f25c8&displayName=hot-topics&cssID=hot-topics"/>
+</div>
+</div><div class="iw_component" id="c1370510460190"><div xmlns:esi="http://www.edge-delivery.org/esi/1.0" xmlns:xalan="http://xml.apache.org/xalan" id="gbl-hd-search">
+<div>
+<input value="" type="hidden">
+<esi:include onerror="continue" src="/cda-web/search-suggested-terms-module.htm?"/>
+</div>
+</div>
+</div></div><div class="iw_component" id="c1370510460184"><div xmlns:esi="http://www.edge-delivery.org/esi/1.0">
+<input value="" type="hidden">
+<esi:include onerror="continue" src="/cda-web/breadcrumb-module.htm?requestUri=$(REQUEST_PATH)"/>
+</div>
+</div><div class="iw_component" id="c1370510460181"><div xmlns:esi="http://www.edge-delivery.org/esi/1.0">
+<input value="" type="hidden">
+<esi:include onerror="continue" src="/cda-web/page-title-module.htm?id=9ddfbc4b-52b3-4f65-a087-ceff2fc33e59&displayName=Gameday&cssID=gameday&sponsorshipLocation=chrome"/>
+</div>
+</div><div id="element7"><div id="element8"><div id="element9"><div class="iw_component" id="c1370510460175"><div xmlns:esi="http://www.edge-delivery.org/esi/1.0">
+<input value="" type="hidden">
+<esi:include onerror="continue" src="/cda-web/jumpmenu-module.htm?id=f756b066-f55e-4db2-a036-b933d018b35d&"/>
+</div>
+</div><div class="iw_component" id="c1370510460187"><div xmlns:esi="http://www.edge-delivery.org/esi/1.0">
+<input value="" type="hidden">
+<esi:include onerror="continue" src="/cda-web/custom-module.htm?id=0428457e-5610-4514-b4fb-fef60a4c1b57&"/>
+</div>
+</div></div><div class="iw_component" id="c1370510460176">
+            <esi:choose>
+              <esi:when test="!$is_empty($(QUERY_STRING{'gameId'}))">
+                <esi:assign name="gameId" value="$(QUERY_STRING{'gameId'})"/>
+              </esi:when>
+              <esi:otherwise>
+                <esi:assign name="gameId" value="'DBC3CC5E5E8451A6E04400144FA84E9C'"/>
+              </esi:otherwise>
+            </esi:choose>
+        <div xmlns:esi="http://www.edge-delivery.org/esi/1.0">
+<input value="" type="hidden">
+<esi:include onerror="continue" src="/cda-web/game-status-module.htm?id=af066946-b321-41c5-8b51-1acfb3ecdc43&&gameState=preGame&size=large&vv=gameday-v2&state=$(QUERY_STRING{'state'})&requestUri=$(REQUEST_PATH)&gameId=$(gameId)"/>
+</div>
+</div><div id="element10"><div class="iw_component" id="c1370510460185"><div xmlns:esi="http://www.edge-delivery.org/esi/1.0">
+<input value="" type="hidden">
+<esi:include onerror="continue" src="/cda-web/content-list-dynamic-module.htm?displayName=Patriots%20News%20%26%20Blogs&contentListType=internal&sortField=DATE&contentType=ARTICLE&numberOfResults=50&moreLinkURL=http%3A%2F%2Fwww.patriots.com%2Fnews%2Fall-news.html&moreLinkText=More%20News%20and%20Blogs&showRelatedToContent=No&relatedClubs=NE&relatedSeason=2013&gameId=DAAE107185242756E04400144FD1CCD8&relatedGame=2013-Reg-Week-4&relatedToId=$(id)&showImage=No&showDescription=No&showByline=No&showPublicationDate=No&showViewCount=No&showRSS=Yes&showContentType=Yes&showFilterType=No&showPagination=Yes&showPagerStatus=No&numberPerPage=6&showTitleStyle=Yes&view=content-list-variation-1&month=$(QUERY_STRING{'month'})&year=$(QUERY_STRING{'year'})"/>
+</div>
+</div><div class="iw_component" id="c1370510460177"><div xmlns:esi="http://www.edge-delivery.org/esi/1.0">
+<input value="" type="hidden">
+<esi:include onerror="continue" src="/cda-web/content-list-dynamic-module.htm?displayName=Opponent%20News&cssID=opponent-news&contentListType=feed&feedId=1062&feedUrl=http%3A%2F%2Fwww.atlantafalcons.com%2Fcda-web%2Frss-module.htm%3FtagName%3DNews&numberOfResults=6&moreLinkURL=http%3A%2F%2Fwww.atlantafalcons.com&moreLinkText=More%20Opponent%20News&showImage=No&showDescription=No&showByline=No&showPublicationDate=Yes&showViewCount=No&showRSS=No&showContentType=No&showFilterType=No&showPagination=No&showPagerStatus=No&numberPerPage=6&showTitleStyle=Yes&view=content-list-variation-1&month=$(QUERY_STRING{'month'})&year=$(QUERY_STRING{'year'})"/>
+</div>
+</div></div><div class="iw_component" id="c1370510460188"><div xmlns:esi="http://www.edge-delivery.org/esi/1.0">
+<input value="" type="hidden">
+<esi:include onerror="continue" src="/cda-web/custom-module.htm?id=d70566f5-78e9-40c3-b60f-1679d1af3fef&wrap=true"/>
+</div>
+</div></div><div id="element11"><div class="iw_component" id="c1370510460180"><div xmlns:esi="http://www.edge-delivery.org/esi/1.0">
+<input value="" type="hidden">
+<esi:include onerror="continue" src="/cda-web/advertisement-module.htm?id=0baadf6b-8a1f-4975-9cfb-7ab72df7e861&"/>
+</div>
+</div><div class="iw_component" id="c1380103321079"><div xmlns:esi="http://www.edge-delivery.org/esi/1.0">
+<input value="" type="hidden">
+<esi:include onerror="continue" src="/cda-web/custom-module.htm?id=d62494b4-59c0-441b-b957-92cee8943d88&"/>
+</div>
+</div><div class="iw_component" id="c1370510460186"><div xmlns:esi="http://www.edge-delivery.org/esi/1.0">
+<input value="" type="hidden">
+<esi:include onerror="continue" src="/cda-web/content-list-dynamic-module.htm?displayName=Video&contentListType=internal&sortField=DATE&contentType=VIDEO&numberOfResults=30&showRelatedToContent=No&relatedClubs=NE&relatedSeason=2013&gameId=DAAE107185242756E04400144FD1CCD8&relatedGame=2013-Reg-Week-4&relatedToId=$(id)&showImage=Yes&showDescription=No&showByline=No&showPublicationDate=Yes&showViewCount=No&showRSS=Yes&showContentType=Yes&showFilterType=No&showPagination=Yes&showPagerStatus=No&numberPerPage=3&showTitleStyle=Yes&view=content-list-variation-2&month=$(QUERY_STRING{'month'})&year=$(QUERY_STRING{'year'})"/>
+</div>
+</div><div class="iw_component" id="c1370510460178"><div xmlns:esi="http://www.edge-delivery.org/esi/1.0">
+<input value="" type="hidden">
+<esi:include onerror="continue" src="/cda-web/content-list-dynamic-module.htm?displayName=Audio&contentListType=internal&sortField=DATE&contentType=AUDIO&numberOfResults=30&showRelatedToContent=No&relatedClubs=NE&relatedSeason=2013&gameId=DAAE107185242756E04400144FD1CCD8&relatedGame=2013-Reg-Week-4&relatedToId=$(id)&showImage=Yes&showDescription=No&showByline=No&showPublicationDate=Yes&showViewCount=No&showRSS=Yes&showContentType=Yes&showFilterType=No&showPagination=Yes&showPagerStatus=No&numberPerPage=3&showTitleStyle=Yes&view=content-list-variation-2&month=$(QUERY_STRING{'month'})&year=$(QUERY_STRING{'year'})"/>
+</div>
+</div><div class="iw_component" id="c1370510460198"><div xmlns:esi="http://www.edge-delivery.org/esi/1.0">
+<input value="" type="hidden">
+<esi:include onerror="continue" src="/cda-web/advertisement-module.htm?id=95e77d92-5486-4717-a1eb-fb12fc74c4d8&"/>
+</div>
+</div></div></div><div class="iw_component" id="c1370510460179"><div xmlns:esi="http://www.edge-delivery.org/esi/1.0">
+<input value="" type="hidden">
+<esi:include onerror="continue" src="/cda-web/custom-module.htm?id=f29b8cc0-2189-4983-afb7-040b3a350de9&&cssID=club-footer&wrap=true"/>
+</div>
+</div></div></div></div></div></div></div>
+            <esi:include src="/nfl-assets/htm/netfooter.html" onerror="continue"/>
+            <esi:include src="/cda-web/footer.htm" onerror="continue"/><!--ls:end[body]--></body></html>
