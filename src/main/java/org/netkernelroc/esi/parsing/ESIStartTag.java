@@ -37,7 +37,7 @@ public class ESIStartTag extends Tag {
     public String getAttribute(String key) {
         int idx = tagPayload.indexOf(key);
         if (idx < 0)
-            throw new IllegalStateException("Could not find key: " + key + " and don't know how we should handle it at this point");
+            return null;    // Attribute not found.
 
         idx = tagPayload.indexOf("=", idx);
         if (idx < 0)

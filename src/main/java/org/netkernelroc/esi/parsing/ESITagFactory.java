@@ -30,7 +30,9 @@ System.out.println("EARLTAG: " + tagNode.getTagPayload());
             return new Except();
 
         case INCLUDE:
-            return new Include(tagNode.getAttribute("src"));
+            String src = tagNode.getAttribute("src");
+            String onError = tagNode.getAttribute("onerror");
+            return (onError == null) ? new Include(src) : new Include(src, onError);
 
         case OTHERWISE:
             return new Otherwise();
