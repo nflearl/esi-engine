@@ -32,4 +32,21 @@ public class ESIStartTag extends Tag {
         String tagName = tagPayload.substring(5, tagNameEndIdx);
         return tagName.toUpperCase();
     }
+
+    @Override
+    public String getAttribute(String key) {
+        int idx = tagPayload.indexOf(key);
+        if (idx < 0)
+            throw new IllegalStateException("Could not find key: " + key + " and don't know how we should handle it at this point");
+
+        idx = tagPayload.indexOf("=", idx);
+        if (idx < 0)
+            throw new IllegalStateException("Could not find = and don't know how we should handle it at this point");
+
+        idx += 2; // get past the = sign and the open "
+        int endIdx = tagPayload.indexOf('"', idx);
+        if (endIdx < 0)
+            endIdx = tagPayload.length() - 1;
+        return tagPayload.substring(idx, endIdx);
+    }
 }
