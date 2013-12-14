@@ -24,4 +24,8 @@ public abstract class Tag {
     public String getTagName() {
         throw new UnsupportedOperationException();
     }
+
+    public String getAttribute(String key) {
+        throw new UnsupportedOperationException();
+    }
 }

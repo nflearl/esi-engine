@@ -27,6 +27,8 @@ public class ESIStartTag extends Tag {
     @Override
     public String getTagName() {
         int tagNameEndIdx = tagPayload.indexOf(' ');
+        if (tagNameEndIdx == -1)    // No space after the name, must be the only thing in the tag.
+            tagNameEndIdx = tagPayload.length() - 1;
         String tagName = tagPayload.substring(5, tagNameEndIdx);
         return tagName.toUpperCase();
     }

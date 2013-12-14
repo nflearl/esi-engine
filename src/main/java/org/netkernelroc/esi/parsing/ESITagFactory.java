@@ -15,7 +15,7 @@ System.out.println("EARLTAG: " + tagNode.getTagPayload());
         EsiTagType tagType = EsiTagType.valueOf(tagNode.getTagName());
         switch (tagType) {
         case ASSIGN:
-//            return new Assign(tagNode.getAttribute("name"), tagNode.getAttribute("value"));
+            return new Assign(tagNode.getAttribute("name"), tagNode.getAttribute("value"));
 
         case ATTEMPT:
             return new Attempt();
@@ -24,13 +24,13 @@ System.out.println("EARLTAG: " + tagNode.getTagPayload());
             return new Choose(tagNode.isEndTag());
 
         case EVAL:
-//            return new Eval(tagNode.getAttribute("src"));
+            return new Eval(tagNode.getAttribute("src"));
 
         case EXCEPT:
             return new Except();
 
         case INCLUDE:
-//            return new Include(tagNode.getAttribute("src"));
+            return new Include(tagNode.getAttribute("src"));
 
         case OTHERWISE:
             return new Otherwise();
