@@ -1,11 +1,5 @@
 package org.netkernelroc.esi.parsing;
 
-import org.htmlparser.Node;
-import org.htmlparser.Parser;
-import org.htmlparser.Tag;
-import org.htmlparser.scanners.CompositeTagScanner;
-import org.htmlparser.util.NodeList;
-import org.htmlparser.util.ParserException;
 import org.netkernel.layer0.representation.IHDSNode;
 import org.netkernelroc.esi.domain.ESITag;
 import org.springframework.core.io.ClassPathResource;
@@ -16,6 +10,7 @@ import static org.testng.AssertJUnit.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import static org.apache.commons.io.FileUtils.readFileToString;
 
@@ -48,22 +43,21 @@ public class EarlTest {
         gameDayResults = readFileToString(resultsFile, "UTF-8");
     }
 
-    public void simple() throws ParserException {
+    public void simple() {
         xmlLoad(simplePayload, simpleResults);
     }
 
 
-    public void preGame() throws ParserException {
+    public void preGame() {
         xmlLoad(gameDayPayload, gameDayResults);
     }
 
-    private void xmlLoad(String payload, String expected) throws ParserException {
+    private void xmlLoad(String payload, String expected)  {
         PageHolder ph = new PageHolder();
-        Parser par = Parser.createParser(payload, null);
-        NodeList nodes = par.parse(null);
-        System.out.println("Node count: " + nodes.size());
-        for (Node node : nodes.toNodeArray()) {
-            processNode(ph, node);
+
+        List<Tag> parsedTags = new ESITagParser().parse(payload);
+        for (Tag parsedTag : parsedTags) {
+            processNode(ph, parsedTag);
         }
 
 
@@ -86,31 +80,24 @@ public class EarlTest {
         return result.toString();
     }
 
-    private void processNode(PageHolder ph, Node node) {
-        // Non-tags are simply literals
-        if (!(node instanceof Tag)) {
-            ph.addLiteral(node.toHtml());
+    private void processNode(PageHolder ph, Tag tag) {
+
+        if (tag.isLiteral()) {
+            ph.addLiteral(tag.getTagPayload());
             return;
         }
 
-        // Likewise, non-ESI tags are simply literals for our purposes
-        Tag tagNode = (Tag) node;
-        if (!(tagNode.getTagName().startsWith("ESI"))) {
-            ph.addLiteral(node.toHtml());
+        if (tag.isComplete()) {
+            ph.addCompleteEsiTag(tagFactory.createTag(tag));
             return;
         }
 
-        if (tagNode.isEmptyXmlTag()) {
-            ph.addCompleteEsiTag(tagFactory.createTag(tagNode));
-            return;
-        }
-
-        if (tagNode.isEndTag()) {
+        if (tag.isEndTag()) {
             ph.esiTagEnd();
             return;
         }
 
-        ph.addEsiTagStart(tagFactory.createTag(tagNode));
+        ph.addEsiTagStart(tagFactory.createTag(tag));
     }
 
 }

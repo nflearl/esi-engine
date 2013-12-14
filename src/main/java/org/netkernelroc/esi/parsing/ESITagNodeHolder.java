@@ -1,6 +1,5 @@
 package org.netkernelroc.esi.parsing;
 
-import org.htmlparser.Node;
 import org.netkernelroc.esi.domain.ESITag;
 
 /**
@@ -8,9 +7,9 @@ import org.netkernelroc.esi.domain.ESITag;
  */
 public class ESITagNodeHolder implements ESITag {
 
-    private final Node esiTag;
+    private final Tag esiTag;
 
-    public ESITagNodeHolder(Node esiTag) {
+    public ESITagNodeHolder(Tag esiTag) {
         this.esiTag = esiTag;
     }
 
