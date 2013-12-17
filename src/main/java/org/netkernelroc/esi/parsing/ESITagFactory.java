@@ -11,37 +11,41 @@ public class ESITagFactory {
     }
 
     public ESITag createTag(Tag tagNode) {
-System.out.println("EARLTAG: " + tagNode.getTagPayload());
         EsiTagType tagType = EsiTagType.valueOf(tagNode.getTagName());
         switch (tagType) {
         case ASSIGN:
             return new Assign(tagNode.getAttribute("name"), tagNode.getAttribute("value"));
 
         case ATTEMPT:
-            return new Attempt();
+            return new Attempt(tagNode.isEndTag());
 
         case CHOOSE:
             return new Choose(tagNode.isEndTag());
 
         case EVAL:
-            return new Eval(tagNode.getAttribute("src"));
+            String onError = tagNode.getAttribute("onerror");
+            String dca = tagNode.getAttribute("dca");
+            String src = tagNode.getAttribute("src");
+            return (onError != null) ? new Eval(src, dca, onError) : new Eval(src);
 
         case EXCEPT:
-            return new Except();
+            return new Except(tagNode.isEndTag());
 
         case INCLUDE:
-            String src = tagNode.getAttribute("src");
-            String onError = tagNode.getAttribute("onerror");
+            src = tagNode.getAttribute("src");
+            onError = tagNode.getAttribute("onerror");
             return (onError == null) ? new Include(src) : new Include(src, onError);
 
         case OTHERWISE:
-            return new Otherwise();
+            return new Otherwise(tagNode.isEndTag());
 
         case TRY:
             return new Try(tagNode.isEndTag());
 
         case WHEN:
-            return new When();
+            String matchName = tagNode.getAttribute("matchname");
+            String test = tagNode.getAttribute("test");
+            return (matchName == null) ? new When(test) : new When(test, matchName);
 
         default:
             throw new IllegalStateException("Unexpected Tag Type " + tagType.name());

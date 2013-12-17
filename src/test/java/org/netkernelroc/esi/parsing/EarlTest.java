@@ -61,23 +61,31 @@ public class EarlTest {
         }
 
 
-        String renderResult = render(ph.getRoot());
-        assertEquals(expected, renderResult);
+        StringBuilder result = new StringBuilder();
+        render(ph.getRoot(), result);
+        assertEquals(stripNewLines(expected), stripNewLines(result.toString()));
     }
 
-    private String render(IHDSNode root) {
-        StringBuilder result = new StringBuilder();
+    private void render(IHDSNode root, StringBuilder result) {
         for (IHDSNode child : root.getChildren()) {
             if ("HTML".equals(child.getName()))
                 result.append(child.getValue().toString());
             else if ("ESI".equals(child.getName())) {
-                result.append(((ESITag) child.getValue()).render());
+                final ESITag childTag = (ESITag) child.getValue();
+                result.append(childTag.render());
+                if (child.getChildren().length > 0) {
+                    render(child, result);
+                    result.append(childTag.renderEnd());
+                }
             }
             else {
                 result.append("ZZZZZZ");  // purposeful noise for the moment.
             }
         }
-        return result.toString();
+    }
+
+    private String stripNewLines(String srcStr) {
+        return srcStr.replaceAll("(\\r|\\n)", "");
     }
 
     private void processNode(PageHolder ph, Tag tag) {

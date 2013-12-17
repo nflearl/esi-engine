@@ -23,4 +23,9 @@ public class Include implements ESITag {
                 ((onError.isEmpty()) ? "" : " onerror=\"" + onError + "\"") +
                 " src=\"" + srcUrl + "\"/>";
     }
+
+    @Override
+    public String renderEnd() {
+        throw new UnsupportedOperationException();
+    }
 }

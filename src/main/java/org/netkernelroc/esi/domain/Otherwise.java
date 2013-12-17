@@ -3,10 +3,14 @@ package org.netkernelroc.esi.domain;
 /**
  *
  */
-public class Otherwise implements ESITag {
+public class Otherwise extends StartOrEnd {
+
+    public Otherwise(boolean end) {
+        super(end);
+    }
 
     @Override
-    public String render() {
-        throw new UnsupportedOperationException();
+    protected String getTagName() {
+        return "otherwise";
     }
 }

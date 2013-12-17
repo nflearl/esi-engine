@@ -17,4 +17,9 @@ public class ESITagNodeHolder implements ESITag {
     public String render() {
         throw new UnsupportedOperationException();
     }
+
+    @Override
+    public String renderEnd() {
+        throw new UnsupportedOperationException();
+    }
 }

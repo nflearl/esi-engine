@@ -3,10 +3,14 @@ package org.netkernelroc.esi.domain;
 /**
  *
  */
-public class Attempt implements ESITag {
+public class Attempt extends StartOrEnd {
+
+    public Attempt(boolean end) {
+        super(end);
+    }
 
     @Override
-    public String render() {
-        throw new UnsupportedOperationException();
+    protected String getTagName() {
+        return "attempt";
     }
 }

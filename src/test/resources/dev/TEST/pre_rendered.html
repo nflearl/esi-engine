@@ -18,30 +18,30 @@
      <EARL:assign name="channelKey" value="''"/>
      <EARL:choose>
         <EARL:when test="$exists(seoTitle) && $(seoTitle)=='channel'">
-            <EARL:assign name="channelName" value="$(id)" />
-            <EARL:assign name="id" value="''" />
+            <EARL:assign name="channelName" value="$(id)"/>
+            <EARL:assign name="id" value="''"/>
                  <EARL:choose>
                     <EARL:when test="$(pagetype)=='videos'">
-                        <EARL:assign name="mediaType" value="VIDEO" />
+                        <EARL:assign name="mediaType" value="VIDEO"/>
                     </EARL:when>
                    <EARL:otherwise>
-                         <EARL:assign name="mediaType" value="AUDIO" />
+                         <EARL:assign name="mediaType" value="AUDIO"/>
                     </EARL:otherwise>
                  </EARL:choose>
         </EARL:when>
         <EARL:when test="$exists($(QUERY_STRING{'channelName'}))">
-            <EARL:assign name="channelName" value="$(QUERY_STRING{'channelName'})" />
+            <EARL:assign name="channelName" value="$(QUERY_STRING{'channelName'})"/>
                  <EARL:choose>
                     <EARL:when test="$(pagetype)=='videos'">
-                        <EARL:assign name="mediaType" value="VIDEO" />
+                        <EARL:assign name="mediaType" value="VIDEO"/>
                     </EARL:when>
                    <EARL:otherwise>
-                         <EARL:assign name="mediaType" value="AUDIO" />
+                         <EARL:assign name="mediaType" value="AUDIO"/>
                     </EARL:otherwise>
                  </EARL:choose>
        </EARL:when>
     <EARL:otherwise>
-        <EARL:eval src="/cda-web/EARL-audio-video-channel-by-id.htm?id=$(id)" dca="none" onerror="continue"/>
+        <EARL:eval src="/cda-web/esi-audio-video-channel-by-id.htm?id=$(id)" dca="none" onerror="continue"/>
     </EARL:otherwise>
 </EARL:choose>
 
@@ -53,7 +53,7 @@
             
             <EARL:try>
                 <EARL:attempt>
-                    <EARL:include src="/assets/nflhtml/html-namespace.html" />
+                    <EARL:include src="/assets/nflhtml/html-namespace.html"/>
                 </EARL:attempt>
                 <EARL:except>
                     <html xmlns="http://www.w3.org/1999/xhtml">

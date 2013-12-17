@@ -15,4 +15,9 @@ public class Assign implements ESITag {
     public String render() {
         return "<EARL:assign name=\"" + name + "\" value=\"" + value +"\"/>";
     }
+
+    @Override
+    public String renderEnd() {
+        throw new UnsupportedOperationException();
+    }
 }

@@ -3,10 +3,14 @@ package org.netkernelroc.esi.domain;
 /**
  *
  */
-public class Except implements ESITag {
+public class Except extends StartOrEnd {
+
+    public Except(boolean end) {
+        super(end);
+    }
 
     @Override
-    public String render() {
-        throw new UnsupportedOperationException();
+    protected String getTagName() {
+        return "except";
     }
 }
