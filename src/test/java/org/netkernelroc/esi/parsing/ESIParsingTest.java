@@ -17,7 +17,7 @@ import static org.apache.commons.io.FileUtils.readFileToString;
 /**
  *
  */
-@Test(groups = "manual")
+@Test(groups = "class_unit")
 public class ESIParsingTest {
 
     private ESITagFactory tagFactory = new ESITagFactory();
