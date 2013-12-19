@@ -17,17 +17,7 @@ public class PageHolder {
     }
 
     public void addLiteral(String html) {
-        foo(html);
         hb.addNode(TagType.HTML.name(), html);
-    }
-
-    private void foo(String blah) {
-        if (blah.toLowerCase().contains("choose")) {
-            int chooseIdx = blah.indexOf("choose");
-            String choseTag = blah.substring(chooseIdx - 4);
-            int idx = 57;
-            idx++;
-        }
     }
 
     public void addCompleteEsiTag(ESITag tag) {
