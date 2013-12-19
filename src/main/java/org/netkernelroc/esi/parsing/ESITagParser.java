@@ -1,6 +1,5 @@
 package org.netkernelroc.esi.parsing;
 
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -26,25 +25,15 @@ public class ESITagParser {
                 break;
             }
 
-            int closingIdx = -1;
+            int closingIdx;
 
             // Start tag next.  <esi: ... >
             if (nextEndTag < 0 || nextStartTag < nextEndTag) {
-                if (nextStartTag > curIdx)
-                    tokenList.add(new Literal(rawText.substring(curIdx, nextStartTag)));
-                // Find the end of the tag.
-                closingIdx = findClosingTagChar(rawText, nextStartTag);
-                if (closingIdx < 0)
-                    throw new IllegalStateException("No > to complete ESI tag.");
+                closingIdx = computeClosing(rawText, tokenList, curIdx, nextStartTag);
                 tokenList.add(new ESIStartTag(rawText.substring(nextStartTag, closingIdx)));
                 nextStartTag = nextStartTag(rawText, closingIdx);
             } else {    // End tag next  </esi: ... >
-                if (nextEndTag > curIdx)
-                    tokenList.add(new Literal(rawText.substring(curIdx, nextEndTag)));
-                // Find the end of the tag.
-                closingIdx = findClosingTagChar(rawText, nextEndTag);
-                if (closingIdx < 0)
-                    throw new IllegalStateException("No > to complete ESI tag.");
+                closingIdx = computeClosing(rawText, tokenList, curIdx, nextEndTag);
                 tokenList.add(new ESIEndTag(rawText.substring(nextEndTag, closingIdx)));
                 nextEndTag = nextEndTag(rawText, closingIdx);
             }
@@ -53,6 +42,17 @@ public class ESITagParser {
         }
 
         return tokenList;
+    }
+
+    private int computeClosing(String rawText, List<Tag> tokenList, int curIdx, int nextTag) {
+        int closingIdx;
+        if (nextTag > curIdx)
+            tokenList.add(new Literal(rawText.substring(curIdx, nextTag)));
+        // Find the end of the tag.
+        closingIdx = findClosingTagChar(rawText, nextTag);
+        if (closingIdx < 0)
+            throw new IllegalStateException("No > to complete ESI tag.");
+        return closingIdx;
     }
 
     private int findClosingTagChar(String rawText, int curIdx) {
