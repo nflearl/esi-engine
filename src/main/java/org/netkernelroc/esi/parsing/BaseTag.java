@@ -3,11 +3,11 @@ package org.netkernelroc.esi.parsing;
 /**
  *
  */
-public abstract class Tag {
+public abstract class BaseTag {
 
     protected final String tagPayload;
 
-    protected Tag(String tagPayload) {
+    protected BaseTag(String tagPayload) {
         this.tagPayload = tagPayload;
     }
 

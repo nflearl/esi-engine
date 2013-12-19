@@ -3,7 +3,7 @@ package org.netkernelroc.esi.parsing;
 /**
  *
  */
-public class ESIStartTag extends Tag {
+public class ESIStartTag extends BaseTag {
 
     public ESIStartTag(String tagPayload) {
         super(tagPayload);

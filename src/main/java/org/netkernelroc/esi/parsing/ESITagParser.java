@@ -11,9 +11,9 @@ public class ESITagParser {
     public ESITagParser() {
     }
 
-    public List<Tag> parse(String rawText) {
+    public List<BaseTag> parse(String rawText) {
 
-        List<Tag> tokenList = new LinkedList<Tag>();
+        List<BaseTag> tokenList = new LinkedList<BaseTag>();
 
         int curIdx = 0;
         int nextStartTag = nextStartTag(rawText, 0);
@@ -44,7 +44,7 @@ public class ESITagParser {
         return tokenList;
     }
 
-    private int computeClosing(String rawText, List<Tag> tokenList, int curIdx, int nextTag) {
+    private int computeClosing(String rawText, List<BaseTag> tokenList, int curIdx, int nextTag) {
         int closingIdx;
         if (nextTag > curIdx)
             tokenList.add(new Literal(rawText.substring(curIdx, nextTag)));

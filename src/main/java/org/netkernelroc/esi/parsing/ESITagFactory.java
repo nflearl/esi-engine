@@ -10,7 +10,7 @@ public class ESITagFactory {
     public ESITagFactory() {
     }
 
-    public ESITag createTag(Tag tagNode) {
+    public ESITag createTag(BaseTag tagNode) {
         EsiTagType tagType = EsiTagType.valueOf(tagNode.getTagName());
         switch (tagType) {
         case ASSIGN:
@@ -48,7 +48,7 @@ public class ESITagFactory {
             return (matchName == null) ? new When(test) : new When(test, matchName);
 
         default:
-            throw new IllegalStateException("Unexpected Tag Type " + tagType.name());
+            throw new IllegalStateException("Unexpected BaseTag Type " + tagType.name());
         }
     }
 }

@@ -3,7 +3,7 @@ package org.netkernelroc.esi.parsing;
 /**
  *
  */
-public class Literal extends Tag {
+public class Literal extends BaseTag {
 
     public Literal(String tagPayload) {
         super(tagPayload);

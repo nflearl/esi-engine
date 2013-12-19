@@ -55,8 +55,8 @@ public class ESIParsingTest {
     private void xmlLoad(String payload, String expected)  {
         PageHolder ph = new PageHolder();
 
-        List<Tag> parsedTags = new ESITagParser().parse(payload);
-        for (Tag parsedTag : parsedTags) {
+        List<BaseTag> parsedTags = new ESITagParser().parse(payload);
+        for (BaseTag parsedTag : parsedTags) {
             processNode(ph, parsedTag);
         }
 
@@ -88,7 +88,7 @@ public class ESIParsingTest {
         return srcStr.replaceAll("(\\r|\\n)", "");
     }
 
-    private void processNode(PageHolder ph, Tag tag) {
+    private void processNode(PageHolder ph, BaseTag tag) {
 
         if (tag.isLiteral()) {
             ph.addLiteral(tag.getTagPayload());
