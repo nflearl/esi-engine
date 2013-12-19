@@ -20,13 +20,13 @@ public class When implements ESITag {
 
     @Override
     public String render() {
-        return "<EARL:when test=\"" + testExpression +
+        return "<" + ESI_CHECK_RESULT + ":when test=\"" + testExpression +
                 ((matchName.isEmpty()) ? "" : "\" matchname=\"" + matchName) +
                 "\">";
     }
 
     @Override
     public String renderEnd() {
-        return "</EARL:when>";
+        return "</" + ESI_CHECK_RESULT + ":when>";
     }
 }

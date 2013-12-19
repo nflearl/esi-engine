@@ -19,7 +19,7 @@ public class Include implements ESITag {
     }
 
     public String render() {
-        return "<EARL:include" +
+        return "<" + ESI_CHECK_RESULT + ":include" +
                 ((onError.isEmpty()) ? "" : " onerror=\"" + onError + "\"") +
                 " src=\"" + srcUrl + "\"/>";
     }

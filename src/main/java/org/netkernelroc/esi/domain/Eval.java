@@ -23,7 +23,7 @@ public class Eval implements ESITag {
 
     @Override
     public String render() {
-        return "<EARL:eval src=\"" + srcUrl +
+        return "<" + ESI_CHECK_RESULT + ":eval src=\"" + srcUrl +
                 ((dca.isEmpty()) ? "" : "\" dca=\"" + dca) +
                 ((onerror.isEmpty()) ? "" : "\" onerror=\"" + onerror) +
                 "\"/>";

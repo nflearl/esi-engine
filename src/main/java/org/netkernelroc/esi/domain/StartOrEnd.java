@@ -14,11 +14,11 @@ public abstract class StartOrEnd implements ESITag {
 
     @Override
     public String render() {
-        return "<EARL" + isEndStr + ":" + getTagName() + ">";
+        return "<" + isEndStr + ESI_CHECK_RESULT + ":" + getTagName() + ">";
     }
 
     @Override
     public String renderEnd() {
-        return "</EARL:" + getTagName() + ">";
+        return "</" + ESI_CHECK_RESULT+ ":" + getTagName() + ">";
     }
 }
