@@ -13,12 +13,12 @@ public abstract class StartOrEnd implements ESITag {
     protected abstract String getTagName();
 
     @Override
-    public String render() {
+    public String renderOrig() {
         return "<" + isEndStr + ESI_CHECK_RESULT + ":" + getTagName() + ">";
     }
 
     @Override
-    public String renderEnd() {
+    public String renderOrigEnd() {
         return "</" + ESI_CHECK_RESULT+ ":" + getTagName() + ">";
     }
 }

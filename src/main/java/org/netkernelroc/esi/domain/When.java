@@ -19,14 +19,14 @@ public class When implements ESITag {
     }
 
     @Override
-    public String render() {
+    public String renderOrig() {
         return "<" + ESI_CHECK_RESULT + ":when test=\"" + testExpression +
                 ((matchName.isEmpty()) ? "" : "\" matchname=\"" + matchName) +
                 "\">";
     }
 
     @Override
-    public String renderEnd() {
+    public String renderOrigEnd() {
         return "</" + ESI_CHECK_RESULT + ":when>";
     }
 }

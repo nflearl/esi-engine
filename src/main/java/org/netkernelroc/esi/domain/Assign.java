@@ -12,12 +12,12 @@ public class Assign implements ESITag {
         this.value = value;
     }
 
-    public String render() {
+    public String renderOrig() {
         return "<" + ESI_CHECK_RESULT + ":assign name=\"" + name + "\" value=\"" + value +"\"/>";
     }
 
     @Override
-    public String renderEnd() {
+    public String renderOrigEnd() {
         throw new UnsupportedOperationException();
     }
 }

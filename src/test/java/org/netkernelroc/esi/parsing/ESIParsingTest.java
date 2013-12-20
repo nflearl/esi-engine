@@ -72,10 +72,10 @@ public class ESIParsingTest {
                 result.append(child.getValue().toString());
             else if ("ESI".equals(child.getName())) {
                 final ESITag childTag = (ESITag) child.getValue();
-                result.append(childTag.render());
+                result.append(childTag.renderOrig());
                 if (child.getChildren().length > 0) {
                     render(child, result);
-                    result.append(childTag.renderEnd());
+                    result.append(childTag.renderOrigEnd());
                 }
             }
             else {

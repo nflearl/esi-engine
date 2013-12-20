@@ -18,14 +18,14 @@ public class Include implements ESITag {
         this.onError = onError;
     }
 
-    public String render() {
+    public String renderOrig() {
         return "<" + ESI_CHECK_RESULT + ":include" +
                 ((onError.isEmpty()) ? "" : " onerror=\"" + onError + "\"") +
                 " src=\"" + srcUrl + "\"/>";
     }
 
     @Override
-    public String renderEnd() {
+    public String renderOrigEnd() {
         throw new UnsupportedOperationException();
     }
 }

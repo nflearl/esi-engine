@@ -7,7 +7,7 @@ public interface ESITag {
 
     String ESI_CHECK_RESULT = "ESICHECK";
 
-    String render();
+    String renderOrig();
 
-    String renderEnd(); // Render the end tag version
+    String renderOrigEnd(); // Render the end tag version
 }

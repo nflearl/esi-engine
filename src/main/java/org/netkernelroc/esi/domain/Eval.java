@@ -22,7 +22,7 @@ public class Eval implements ESITag {
     }
 
     @Override
-    public String render() {
+    public String renderOrig() {
         return "<" + ESI_CHECK_RESULT + ":eval src=\"" + srcUrl +
                 ((dca.isEmpty()) ? "" : "\" dca=\"" + dca) +
                 ((onerror.isEmpty()) ? "" : "\" onerror=\"" + onerror) +
@@ -30,7 +30,7 @@ public class Eval implements ESITag {
     }
 
     @Override
-    public String renderEnd() {
+    public String renderOrigEnd() {
         throw new UnsupportedOperationException();
     }
 }
