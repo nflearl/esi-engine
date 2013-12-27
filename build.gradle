@@ -14,7 +14,6 @@ repositories {
 dependencies {
     compile group: 'commons-io', name: 'commons-io', version: '2.2'
     compile group: 'org.springframework', name: 'spring-core', version: '3.2.4.RELEASE'
-    compile group: 'org.testng', name: 'testng', version: '5.+'
     testCompile group: 'org.testng', name: 'testng', version: '5.+'
 }
 
