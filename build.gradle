@@ -17,7 +17,6 @@ dependencies {
     compile group: 'org.testng', name: 'testng', version: '5.+'
     testCompile group: 'org.testng', name: 'testng', version: '5.+'
 }
-}
 
 test {
     useTestNG()
