@@ -1,19 +1,24 @@
 apply plugin: 'java'
 
-sourceCompatibility = '1.7'
+sourceCompatibility = '1.6'
 version = '0.0.1'
 jar {
     manifest {
-        attributes 'Implementation-Title': 'Gradle Quickstart', 'Implementation-Version': version
+        attributes 'Implementation-Title': 'ESI Engine', 'Implementation-Version': version
     }
 }
 
 repositories {
     mavenLocal()
+    maven {
+        url "http://localhost:8080/netkernel-maven/"
+    }
+    mavenCentral()
 }
 dependencies {
     compile group: 'commons-io', name: 'commons-io', version: '2.2'
     compile group: 'org.springframework', name: 'spring-core', version: '3.2.4.RELEASE'
+    compile group: 'urn.com.ten60.core', name: 'layer0', version: '1.+'
     testCompile group: 'org.testng', name: 'testng', version: '5.+'
 }
 
