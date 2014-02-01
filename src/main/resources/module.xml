@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="2.0">
+    <meta>
+        <identity>
+            <uri>urn:us:nolans:esi:engine</uri>
+            <version>1.0.0</version>
+        </identity>
+        <info>
+            <name>esi_engine</name>
+            <description>Describes the Endpoints for wiring in the ESI engine.</description>
+        </info>
+    </meta>
+    <system>
+        <dynamic/>
+    </system>
+    <rootspace name="esi_simple - Development Space" uri="urn:com:nfl:esi:simple">
+        <fileset>
+            <regex>res:/etc/system/SimpleDynamicImportHook.xml</regex>
+        </fileset>
+        <mapper>
+            <config>
+                <endpoint>
+                    <id>urn:us:nolans:esi:engine:incoming</id>
+                    <name>Host Based Service</name>
+                    <description>Groovy service for wiring up incoming HTTP requests</description>
+                    <grammar>
+                        <group>
+                            http://
+                            <group name="hostname">
+                                <regex type="alphanum"/>
+                            </group>
+                            :
+                            <group name="port">
+                                <regex type="integer"/>
+                            </group>
+                            /
+                            <group name="path">
+                                <regex type="anything"/>
+                            </group>
+                        </group>
+                    </grammar>
+                    <request>
+                        <identifier>active:groovy</identifier>
+                        <argument name="operator">res:/resources/endpoints/incoming.gy</argument>
+                        <argument name="host">arg:hostname</argument>
+                        <argument name="port">arg:port</argument>
+                        <argument name="path">arg:path</argument>
+                    </request>
+                </endpoint>
+            </config>
+            <space>
+                <fileset>
+                    <regex>res:/resources/endpoints/.*</regex>
+                </fileset>
+                <import>
+                    <uri>urn:org:netkernel:lang:groovy</uri>
+                </import>
+            </space>
+        </mapper>
+    </rootspace>
+</module>
