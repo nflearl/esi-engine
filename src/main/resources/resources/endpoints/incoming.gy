@@ -2,11 +2,15 @@ req = context.getThisRequest();
 host = req.getArgumentValue("host");
 path = req.getArgumentValue("path");
 
-context.logRaw(org.netkernel.layer0.nkf.INKFLocale.LEVEL_INFO, host);
+context.logRaw(org.netkernel.layer0.nkf.INKFLocale.LEVEL_INFO, "begin log");
 context.logRaw(org.netkernel.layer0.nkf.INKFLocale.LEVEL_INFO, path);
 
 
-context.createResponseFrom("Success from ESI engine");
+newResult = context.source("active:omr+host@" + host);
+context.logRaw(org.netkernel.layer0.nkf.INKFLocale.LEVEL_INFO, newResult);
+context.createResponseFrom(newResult);
+
+context.logRaw(org.netkernel.layer0.nkf.INKFLocale.LEVEL_INFO, "end log");
 
 // msg = context.formatRaw("Groovy example running with input %1",value);
 // context.logRaw(org.netkernel.layer0.nkf.INKFLocale.LEVEL_INFO,msg);

@@ -19,6 +19,7 @@ dependencies {
     compile group: 'commons-io', name: 'commons-io', version: '2.2'
     compile group: 'org.springframework', name: 'spring-core', version: '3.2.4.RELEASE'
     compile group: 'urn.com.ten60.core', name: 'layer0', version: '1.+'
+    compile group: 'urn.com.ten60.core', name: 'module.standard', version: '1.69.+'
     testCompile group: 'org.testng', name: 'testng', version: '5.+'
 }
 
