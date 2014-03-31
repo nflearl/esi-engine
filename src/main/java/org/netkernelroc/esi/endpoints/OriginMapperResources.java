@@ -17,7 +17,7 @@ public class OriginMapperResources extends StandardAccessorImpl {
 
     // As an example.  One can have many different hosts mapping to different source locations.
     static {
-        hostNameMapping.put("localhost", "file:/origin");
+        hostNameMapping.put("localhost", "file:///C:/origin/localhost/");
     }
 
     public void onSource(INKFRequestContext context) throws Exception
