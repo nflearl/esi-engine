@@ -2,7 +2,7 @@
 <module version="2.0">
     <meta>
         <identity>
-            <uri>urn:us:nolans:esi:engine</uri>
+            <uri>org.netkernelroc:esi</uri>
             <version>1.0.0</version>
         </identity>
         <info>
@@ -13,15 +13,14 @@
     <system>
         <dynamic/>
     </system>
-    <!--uri="urn:com:nfl:esi:engine"-->
-    <rootspace name="esi_simple - Development Space">
+    <rootspace name="esi_simple - Host to Origin to ESI Engine">
         <fileset>
             <regex>res:/etc/system/SimpleDynamicImportHook.xml</regex>
         </fileset>
         <mapper>
             <config>
                 <endpoint>
-                    <id>urn:us:nolans:esi:engine:incoming</id>
+                    <id>org.netkernelroc:esi:engine:incoming</id>
                     <name>Host Based Service</name>
                     <description>Groovy service for wiring up incoming HTTP requests</description>
                     <grammar>
@@ -57,13 +56,13 @@
                     <uri>urn:org:netkernel:lang:groovy</uri>
                 </import>
                 <import>
-                    <uri>urn:us:nolans:esi:orm</uri>
+                    <uri>org.netkernelroc:esi:omr</uri>
                 </import>
             </space>
         </mapper>
     </rootspace>
     <!---->
-    <rootspace name="omr" uri="urn:us:nolans:esi:orm">
+    <rootspace name="omr" uri="org.netkernelroc:esi:omr">
         <fileset>
             <regex>res:/etc/system/SimpleDynamicImportHook.xml</regex>
         </fileset>
@@ -76,5 +75,20 @@
                 </grammar>
                 <class>org.netkernelroc.esi.endpoints.OriginMapperResources</class>
             </endpoint>
+    </rootspace>
+
+    <rootspace name="engine" uri="org.netkernelroc:esi:engine">
+        <fileset>
+            <regex>res:/etc/system/SimpleDynamicImportHook.xml</regex>
+        </fileset>
+        <endpoint>
+            <grammar>
+                <active>
+                    <identifier>active:esi-engine</identifier>
+                    <argument name="payload" min="1" max="1"/>
+                </active>
+            </grammar>
+            <class>org.netkernelroc.esi.endpoints.RenderEngine</class>
+        </endpoint>
     </rootspace>
 </module>
