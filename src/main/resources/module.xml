@@ -58,29 +58,26 @@
                 <import>
                     <uri>org.netkernelroc:esi:omr</uri>
                 </import>
+                <import>
+                    <uri>org.netkernelroc:esi:engine</uri>
+                </import>
             </space>
         </mapper>
     </rootspace>
     <!---->
     <rootspace name="omr" uri="org.netkernelroc:esi:omr">
-        <fileset>
-            <regex>res:/etc/system/SimpleDynamicImportHook.xml</regex>
-        </fileset>
-            <endpoint>
-                <grammar>
-                    <active>
-                        <identifier>active:omr</identifier>
-                        <argument name="host" min="1" max="1"/>
-                    </active>
-                </grammar>
-                <class>org.netkernelroc.esi.endpoints.OriginMapperResources</class>
-            </endpoint>
+        <endpoint>
+            <grammar>
+                <active>
+                    <identifier>active:omr</identifier>
+                    <argument name="host" min="1" max="1"/>
+                </active>
+            </grammar>
+            <class>org.netkernelroc.esi.endpoints.OriginMapperResources</class>
+        </endpoint>
     </rootspace>
 
     <rootspace name="engine" uri="org.netkernelroc:esi:engine">
-        <fileset>
-            <regex>res:/etc/system/SimpleDynamicImportHook.xml</regex>
-        </fileset>
         <endpoint>
             <grammar>
                 <active>
