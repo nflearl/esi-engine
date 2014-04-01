@@ -85,7 +85,7 @@
                     <argument name="payload" min="1" max="1"/>
                 </active>
             </grammar>
-            <class>org.netkernelroc.esi.endpoints.RenderEngine</class>
+            <class>org.netkernelroc.esi.endpoints.RenderResource</class>
         </endpoint>
     </rootspace>
 </module>

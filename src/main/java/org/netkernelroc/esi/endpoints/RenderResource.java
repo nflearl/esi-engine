@@ -7,7 +7,7 @@ import org.netkernel.module.standard.endpoint.StandardAccessorImpl;
 /**
  *
  */
-public class RenderEngine extends StandardAccessorImpl {
+public class RenderResource extends StandardAccessorImpl {
 
     public void onSource(INKFRequestContext context) throws Exception
     {
