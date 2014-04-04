@@ -1,5 +1,6 @@
 req = context.getThisRequest();
 host = req.getArgumentValue("host");
+port = req.getArgumentValue("port");
 path = req.getArgumentValue("path");
 
 context.logRaw(org.netkernel.layer0.nkf.INKFLocale.LEVEL_INFO, "begin log");
@@ -12,6 +13,8 @@ context.logRaw(org.netkernel.layer0.nkf.INKFLocale.LEVEL_INFO, "Origin Contents:
 
 engineReq = context.createRequest("active:esi-engine");
 engineReq.addArgument("payload", originContents);
+engineReq.addArgument("host", host);
+engineReq.addArgument("port", port);
 result = context.issueRequest(engineReq);
 context.logRaw(org.netkernel.layer0.nkf.INKFLocale.LEVEL_INFO, "Result: " + result);
 context.createResponseFrom(result);

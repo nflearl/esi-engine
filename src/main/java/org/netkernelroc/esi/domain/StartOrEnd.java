@@ -1,5 +1,7 @@
 package org.netkernelroc.esi.domain;
 
+import org.netkernelroc.esi.rendering.ESIContext;
+
 /**
  *
  */
@@ -20,5 +22,13 @@ public abstract class StartOrEnd implements ESITag {
     @Override
     public String renderOrigEnd() {
         return "</" + ESI_CHECK_RESULT+ ":" + getTagName() + ">";
+    }
+
+    @Override
+    public String render(ESIContext esiContext) {
+        // TODO - placeholder for now
+        if (this != null)
+            return "";
+        throw new UnsupportedOperationException();
     }
 }

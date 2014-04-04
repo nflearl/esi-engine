@@ -1,5 +1,7 @@
 package org.netkernelroc.esi.domain;
 
+import org.netkernelroc.esi.rendering.ESIContext;
+
 /**
  *
  */
@@ -19,5 +21,11 @@ public class Assign implements ESITag {
     @Override
     public String renderOrigEnd() {
         throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public String render(ESIContext esiContext) {
+        esiContext.assignVariable(name, value);
+        return "";
     }
 }
