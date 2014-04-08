@@ -40,12 +40,9 @@ public class RenderEngine {
             else if ("ESI".equals(child.getName())) {
                 final ESITag childTag = (ESITag) child.getValue();
                 result.append(childTag.render(context));
-                /*
                 if (child.getChildren().length > 0) {
-                    render(child, result);
-                    result.append(childTag.renderOrigEnd());
+                    render(context, child, result);
                 }
-                */
             }
             else {
                 // Should only have "raw html" and ESI tags.

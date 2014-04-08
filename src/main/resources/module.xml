@@ -61,6 +61,10 @@
                 <import>
                     <uri>org.netkernelroc:esi:engine</uri>
                 </import>
+                <!--Import HTTP client-->
+                <import>
+                    <uri>urn:org:netkernel:client:http</uri>
+                </import>
             </space>
         </mapper>
     </rootspace>
