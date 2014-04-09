@@ -1,5 +1,6 @@
 package org.netkernelroc.esi.domain;
 
+import org.netkernelroc.esi.parsing.VariableSubstituter;
 import org.netkernelroc.esi.rendering.ESIContext;
 
 /**
@@ -33,6 +34,7 @@ public class Include implements ESITag {
 
     @Override
     public String render(ESIContext esiContext) {
-        return esiContext.resolveInclude(srcUrl);
+        String convertedUrl = new VariableSubstituter(esiContext).substitute(srcUrl);
+        return esiContext.resolveInclude(convertedUrl);
     }
 }
