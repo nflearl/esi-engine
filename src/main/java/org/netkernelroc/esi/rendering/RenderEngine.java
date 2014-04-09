@@ -2,6 +2,7 @@ package org.netkernelroc.esi.rendering;
 
 import org.netkernel.layer0.representation.IHDSNode;
 import org.netkernelroc.esi.domain.ESITag;
+import org.netkernelroc.esi.domain.Except;
 import org.netkernelroc.esi.parsing.BaseTag;
 import org.netkernelroc.esi.parsing.ESITagFactory;
 import org.netkernelroc.esi.parsing.ESITagParser;
@@ -41,6 +42,10 @@ public class RenderEngine {
                 final ESITag childTag = (ESITag) child.getValue();
                 result.append(childTag.render(context));
                 if (child.getChildren().length > 0) {
+                    // TODO - hack for now to skip exception handling.  Needs
+                    // to be implemented as part of the esi:try
+                    if (childTag instanceof Except)
+                        continue;
                     render(context, child, result);
                 }
             }
