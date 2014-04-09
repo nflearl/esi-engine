@@ -26,7 +26,7 @@ public class RenderResource extends StandardAccessorImpl {
 
         RenderEngine renderEngine = new RenderEngine(payload);
         ESIContext esiContext = buildContext(context, host, port);
-        context.createResponseFrom(renderEngine.renderedResults(esiContext).toString());
+        context.createResponseFrom(renderEngine.renderedResults(esiContext).toString().trim());
     }
 
     private ESIContext buildContext(final INKFRequestContext context, final String host, final String port) {
