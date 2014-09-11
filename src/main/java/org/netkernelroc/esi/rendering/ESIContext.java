@@ -9,4 +9,5 @@ public interface ESIContext {
     String retrieveVariable(String variableName);
 
     String resolveInclude(String relativePath);
+    String lookupHttpParam(String key);
 }

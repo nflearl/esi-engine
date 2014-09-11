@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import static org.testng.AssertJUnit.*;
 
@@ -17,6 +18,9 @@ import static org.testng.AssertJUnit.*;
 public class VariableSubstituterTest {
 
     private static final Map<String, String> valueMap = new HashMap<String, String>(89);
+    private static final Map<String, String> queryParamsMap = new HashMap<String, String>(89);
+    private static final UUID guid = UUID.randomUUID();
+
     private VariableSubstituter varSubNoValues;
     private VariableSubstituter varSubValues;
 
@@ -26,6 +30,8 @@ public class VariableSubstituterTest {
         valueMap.put("REQUEST_PATH", "REQUEST_PATH_VALUE");
         valueMap.put("photoId", "PHOTO_ID_VALUE");
         valueMap.put("mediaType", "MEDIA_TYPE_VALUE");
+
+        queryParamsMap.put("id", guid.toString());
     }
     @BeforeClass
     public void buildSubs() {
@@ -51,7 +57,12 @@ public class VariableSubstituterTest {
                 public String resolveInclude(String relativePath) {
                     throw new UnsupportedOperationException();
                 }
-            };
+
+            @Override
+            public String lookupHttpParam(String key) {
+                return queryParamsMap.get(key);
+            }
+        };
     }
 
     public void testNull() {
@@ -101,5 +112,11 @@ public class VariableSubstituterTest {
                 "photoId=&mediaType=";
 
         assertEquals(expectedResults, varSubNoValues.substitute(src));
+    }
+
+    public void testHttpParam() {
+        String src = "$(QUERY_STRING{'id'})";
+        String expected = guid.toString();
+        assertEquals(expected, varSubValues.substitute(src));
     }
 }

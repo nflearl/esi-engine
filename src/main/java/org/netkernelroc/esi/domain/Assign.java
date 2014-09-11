@@ -1,5 +1,6 @@
 package org.netkernelroc.esi.domain;
 
+import org.netkernelroc.esi.parsing.VariableSubstituter;
 import org.netkernelroc.esi.rendering.ESIContext;
 
 /**
@@ -25,7 +26,8 @@ public class Assign implements ESITag {
 
     @Override
     public String render(ESIContext esiContext) {
-        esiContext.assignVariable(name, value);
+        String substitutedValue =  new VariableSubstituter(esiContext).substitute(value);
+        esiContext.assignVariable(name, substitutedValue);
         return "";
     }
 }

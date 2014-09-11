@@ -54,6 +54,16 @@ public class RenderResource extends StandardAccessorImpl {
                     throw new RuntimeException(nkfe);
                 }
             }
+
+            @Override
+            public String lookupHttpParam(String key) {
+                try {
+                    String result = context.source("httpRequest:/param/" + key, String.class);
+                    return result;
+                } catch (NKFException nkfe) {
+                    throw new RuntimeException(nkfe);
+                }
+            }
         };
     }
 }
