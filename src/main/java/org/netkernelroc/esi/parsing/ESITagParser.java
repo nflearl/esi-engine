@@ -28,7 +28,7 @@ public class ESITagParser {
             int closingIdx;
 
             // Start tag next.  <esi: ... >
-            if (nextEndTag < 0 || nextStartTag < nextEndTag) {
+            if (nextEndTag < 0 || (nextStartTag >= 0 && nextStartTag < nextEndTag)) {
                 closingIdx = computeClosing(rawText, tokenList, curIdx, nextStartTag);
                 tokenList.add(new ESIStartTag(rawText.substring(nextStartTag, closingIdx)));
                 nextStartTag = nextStartTag(rawText, closingIdx);

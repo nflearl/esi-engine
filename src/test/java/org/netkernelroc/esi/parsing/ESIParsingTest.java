@@ -28,6 +28,8 @@ public class ESIParsingTest {
     String gameDayPayload;
     String gameDayResults;
 
+    String parseFragment;
+
     @BeforeClass
     public void initPayload() throws IOException {
         File payloadFile = new ClassPathResource("dev/TEST/game2.html").getFile();
@@ -41,6 +43,9 @@ public class ESIParsingTest {
 
         resultsFile = new ClassPathResource("dev/TEST/pre_rendered.html").getFile();
         gameDayResults = readFileToString(resultsFile, "UTF-8");
+
+        resultsFile = new ClassPathResource("dev/TEST/parse_issue_fragment.html").getFile();
+        parseFragment = readFileToString(resultsFile, "UTF-8");
     }
 
     public void simple() {
@@ -50,6 +55,12 @@ public class ESIParsingTest {
 
     public void preGame() {
         xmlLoad(gameDayPayload, gameDayResults);
+    }
+
+    public void parseFragment() {
+        List<BaseTag> parsedTags = new ESITagParser().parse(parseFragment);
+        // 4 - beginning literal, start, end, ending literal
+        assertEquals(4, parsedTags.size());
     }
 
     private void xmlLoad(String payload, String expected)  {
