@@ -1,5 +1,6 @@
 package org.netkernelroc.esi.endpoints;
 
+import org.netkernel.layer0.nkf.INKFLocale;
 import org.netkernel.layer0.nkf.INKFRequest;
 import org.netkernel.layer0.nkf.INKFRequestContext;
 import org.netkernel.layer0.nkf.NKFException;
@@ -44,6 +45,7 @@ public class RenderResource extends StandardAccessorImpl {
             @Override
             public String resolveInclude(String relativePath) {
                 String url = "http://" + host + ":" + port + relativePath;
+                context.logRaw(INKFLocale.LEVEL_INFO, "resolveInclude: " + url);
                 try {
                     INKFRequest req = context.createRequest("active:httpGet");
                     req.addArgument("url", url);
