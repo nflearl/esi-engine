@@ -1,9 +1,6 @@
 package org.netkernelroc.esi.endpoints;
 
-import org.netkernel.layer0.nkf.INKFLocale;
-import org.netkernel.layer0.nkf.INKFRequest;
-import org.netkernel.layer0.nkf.INKFRequestContext;
-import org.netkernel.layer0.nkf.NKFException;
+import org.netkernel.layer0.nkf.*;
 import org.netkernel.module.standard.endpoint.StandardAccessorImpl;
 import org.netkernelroc.esi.rendering.ESIContext;
 import org.netkernelroc.esi.rendering.RenderEngine;
@@ -13,6 +10,8 @@ import org.netkernelroc.esi.rendering.RenderEngine;
  *
  */
 public class RenderResource extends StandardAccessorImpl {
+
+    public static final String SCRATCH_SPACE = "scratch:esi/assign/";
 
     public RenderResource() {
         // Allows reentrancy for esi including other esi which includes ...
@@ -34,12 +33,40 @@ public class RenderResource extends StandardAccessorImpl {
         return new ESIContext() {
             @Override
             public void assignVariable(String variableName, String value) {
+                // Only store "real" values
+                if (value == null || value.isEmpty())
+                    return;
+                value = stripSingleQuotes(value);
+                if (value.isEmpty())
+                    return;
 
+                try {
+                    INKFRequest req = context.createRequest(SCRATCH_SPACE + variableName);
+                    req.setVerb(INKFRequestReadOnly.VERB_SINK);
+                    req.addPrimaryArgument(value);
+                    context.issueRequest(req);
+                } catch (NKFException nkfe) {
+                    throw new RuntimeException(nkfe);
+                }
             }
 
             @Override
             public String retrieveVariable(String variableName) {
-                return "";
+                INKFRequest req = null;
+                try {
+                    req = context.createRequest(SCRATCH_SPACE + variableName);
+                    req.setVerb(INKFRequestReadOnly.VERB_EXISTS);
+                    boolean exists = (Boolean) context.issueRequest(req);
+                    if (!exists)
+                        return "";
+
+                    req.setVerb(INKFRequestReadOnly.VERB_SOURCE);
+                    Object cachedValue = context.issueRequest(req);
+                    return (cachedValue == null) ? "" : cachedValue.toString();
+
+                } catch (NKFException nkfe) {
+                    throw new RuntimeException(nkfe);
+                }
             }
 
             @Override
@@ -61,11 +88,34 @@ public class RenderResource extends StandardAccessorImpl {
             public String lookupHttpParam(String key) {
                 try {
                     String result = context.source("httpRequest:/param/" + key, String.class);
-                    return result;
+                    return (result == null) ? "" : result;
                 } catch (NKFException nkfe) {
                     throw new RuntimeException(nkfe);
                 }
             }
         };
+    }
+
+    private String stripSingleQuotes(String src) {
+        final String EMPTY_QUOTES = "''";
+        final char EMPTY_QUOTE = '\'';
+
+        if (EMPTY_QUOTES.equals(src))
+            return "";
+
+        if (src.isEmpty())
+            return src;
+
+        String retStr = src;
+        if (src.charAt(0) == EMPTY_QUOTE)
+            retStr = src.substring(1);
+
+        if (retStr.isEmpty())
+            return src;
+
+        if (retStr.charAt(retStr.length() - 1) == EMPTY_QUOTE)
+            retStr = retStr.substring(0, retStr.length() -1);
+
+        return retStr;
     }
 }
