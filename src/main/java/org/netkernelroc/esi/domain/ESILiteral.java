@@ -16,7 +16,7 @@ public class ESILiteral extends ESIBase {
     @Override
     public void render(ESIContext esiContext, StringBuilder result) {
         noKidPolicy();
-        result.append(literalPayload);
+        result.append(literalPayload.trim());
     }
 
     @Override
