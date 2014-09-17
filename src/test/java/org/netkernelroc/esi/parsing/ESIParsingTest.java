@@ -1,6 +1,7 @@
 package org.netkernelroc.esi.parsing;
 
 import org.netkernel.layer0.representation.IHDSNode;
+import org.netkernelroc.esi.domain.ESILiteral;
 import org.netkernelroc.esi.domain.ESITag;
 import org.springframework.core.io.ClassPathResource;
 import org.testng.annotations.BeforeClass;
@@ -102,7 +103,7 @@ public class ESIParsingTest {
     private void processNode(PageHolder ph, BaseTag tag) {
 
         if (tag.isLiteral()) {
-            ph.addLiteral(tag.getTagPayload());
+            ph.addCompleteEsiTag(new ESILiteral(tag.getTagPayload()));
             return;
         }
 

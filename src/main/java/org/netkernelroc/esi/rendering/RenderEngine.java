@@ -1,6 +1,7 @@
 package org.netkernelroc.esi.rendering;
 
 import org.netkernel.layer0.representation.IHDSNode;
+import org.netkernelroc.esi.domain.ESILiteral;
 import org.netkernelroc.esi.domain.ESITag;
 import org.netkernelroc.esi.domain.Except;
 import org.netkernelroc.esi.parsing.BaseTag;
@@ -59,7 +60,7 @@ public class RenderEngine {
     private void processNode(PageHolder ph, BaseTag tag) {
 
         if (tag.isLiteral()) {
-            ph.addLiteral(tag.getTagPayload());
+            ph.addCompleteEsiTag(new ESILiteral(tag.getTagPayload()));
             return;
         }
 

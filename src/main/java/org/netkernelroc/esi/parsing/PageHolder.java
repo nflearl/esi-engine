@@ -16,10 +16,6 @@ public class PageHolder {
     public PageHolder() {
     }
 
-    public void addLiteral(String html) {
-        hb.addNode(TagType.HTML.name(), html);
-    }
-
     public void addCompleteEsiTag(ESITag tag) {
         hb.addNode(TagType.ESI.name(), tag);
     }

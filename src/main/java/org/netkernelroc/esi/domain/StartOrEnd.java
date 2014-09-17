@@ -26,9 +26,7 @@ public abstract class StartOrEnd implements ESITag {
 
     @Override
     public String render(ESIContext esiContext) {
-        // TODO - placeholder for now
-        if (this != null)
-            return "";
+
         throw new UnsupportedOperationException();
     }
 }
