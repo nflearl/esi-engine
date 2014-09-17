@@ -6,7 +6,7 @@ import org.netkernelroc.esi.rendering.ESIContext;
 /**
  *
  */
-public class Assign implements ESITag {
+public class Assign extends ESIBase {
     private final String name;
     private final String value;
 
@@ -25,9 +25,8 @@ public class Assign implements ESITag {
     }
 
     @Override
-    public String render(ESIContext esiContext) {
+    public void render(ESIContext esiContext, StringBuilder results) {
         String substitutedValue =  new VariableSubstituter(esiContext).substitute(value);
         esiContext.assignVariable(name, substitutedValue);
-        return "";
     }
 }

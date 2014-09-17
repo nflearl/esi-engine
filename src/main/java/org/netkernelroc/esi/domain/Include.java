@@ -6,7 +6,7 @@ import org.netkernelroc.esi.rendering.ESIContext;
 /**
  *
  */
-public class Include implements ESITag {
+public class Include  extends ESIBase {
 
     private final String srcUrl;
     private final String onError;   // Optional
@@ -33,8 +33,9 @@ public class Include implements ESITag {
     }
 
     @Override
-    public String render(ESIContext esiContext) {
+    public void render(ESIContext esiContext, StringBuilder result) {
+        noKidPolicy();
         String convertedUrl = new VariableSubstituter(esiContext).substitute(srcUrl);
-        return esiContext.resolveInclude(convertedUrl);
+        result.append(esiContext.resolveInclude(convertedUrl));
     }
 }

@@ -5,7 +5,7 @@ import org.netkernelroc.esi.rendering.ESIContext;
 /**
  *
  */
-public class ESILiteral implements ESITag {
+public class ESILiteral extends ESIBase {
 
     private String literalPayload;
 
@@ -14,8 +14,9 @@ public class ESILiteral implements ESITag {
     }
 
     @Override
-    public String render(ESIContext esiContext) {
-        return literalPayload;
+    public void render(ESIContext esiContext, StringBuilder result) {
+        noKidPolicy();
+        result.append(literalPayload);
     }
 
     @Override

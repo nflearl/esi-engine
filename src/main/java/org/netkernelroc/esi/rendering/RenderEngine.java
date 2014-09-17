@@ -2,6 +2,7 @@ package org.netkernelroc.esi.rendering;
 
 import org.netkernel.layer0.representation.IHDSNode;
 import org.netkernelroc.esi.domain.ESILiteral;
+import org.netkernelroc.esi.domain.ESIRoot;
 import org.netkernelroc.esi.domain.ESITag;
 import org.netkernelroc.esi.domain.Except;
 import org.netkernelroc.esi.parsing.BaseTag;
@@ -9,6 +10,7 @@ import org.netkernelroc.esi.parsing.ESITagFactory;
 import org.netkernelroc.esi.parsing.ESITagParser;
 import org.netkernelroc.esi.parsing.PageHolder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,31 +32,30 @@ public class RenderEngine {
             processNode(ph, parsedTag);
         }
 
-        StringBuilder results = new StringBuilder(esiToProcess.length());
-        render(context, ph.getRoot(), results);
-        return results;
+        ESITag rootTag = new ESIRoot();
+        insertChildrenIntoESITags(ph.getRoot(), rootTag);
+
+        return render(context, rootTag);
     }
 
-    private void render(ESIContext context, IHDSNode root, StringBuilder result) {
+    private void insertChildrenIntoESITags(IHDSNode root, ESITag rootTag) {
+        // No kids to insert
+        if (root.getChildren().length == 0)
+            return;
+
+        List<ESITag> kids = new ArrayList<ESITag>(root.getChildren().length);
         for (IHDSNode child : root.getChildren()) {
-            if ("HTML".equals(child.getName()))
-                result.append(child.getValue().toString());
-            else if ("ESI".equals(child.getName())) {
-                final ESITag childTag = (ESITag) child.getValue();
-                result.append(childTag.render(context));
-                if (child.getChildren().length > 0) {
-                    // TODO - hack for now to skip exception handling.  Needs
-                    // to be implemented as part of the esi:try
-                    if (childTag instanceof Except)
-                        continue;
-                    render(context, child, result);
-                }
-            }
-            else {
-                // Should only have "raw html" and ESI tags.
-                throw new IllegalStateException();
-            }
+            ESITag childTag = (ESITag) child.getValue();
+            insertChildrenIntoESITags(child, childTag);
+            kids.add(childTag);
         }
+        rootTag.setChildren(kids);
+    }
+
+    private StringBuilder render(ESIContext context, ESITag rootTag) {
+        StringBuilder result = new StringBuilder(esiToProcess.length());
+        rootTag.render(context, result);
+        return result;
     }
 
     private void processNode(PageHolder ph, BaseTag tag) {

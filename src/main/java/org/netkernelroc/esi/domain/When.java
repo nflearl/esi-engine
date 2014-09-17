@@ -5,7 +5,7 @@ import org.netkernelroc.esi.rendering.ESIContext;
 /**
  *
  */
-public class When implements ESITag {
+public class When extends ESIBase {
 
     private final String testExpression;
     private final String matchName;
@@ -33,10 +33,10 @@ public class When implements ESITag {
     }
 
     @Override
-    public String render(ESIContext esiContext) {
+    public void render(ESIContext esiContext, StringBuilder result) {
         // TODO - placeholder for now
         if (this != null)
-            return "";
+            return;
         throw new UnsupportedOperationException();
     }
 }

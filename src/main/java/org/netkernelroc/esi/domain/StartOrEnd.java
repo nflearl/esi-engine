@@ -5,7 +5,7 @@ import org.netkernelroc.esi.rendering.ESIContext;
 /**
  *
  */
-public abstract class StartOrEnd implements ESITag {
+public abstract class StartOrEnd extends ESIBase {
     private final String isEndStr;
 
     public StartOrEnd(boolean end) {
@@ -25,7 +25,7 @@ public abstract class StartOrEnd implements ESITag {
     }
 
     @Override
-    public String render(ESIContext esiContext) {
+    public void render(ESIContext esiContext, StringBuilder result) {
 
         throw new UnsupportedOperationException();
     }
