@@ -34,9 +34,16 @@ public class When extends ESIBase {
 
     @Override
     public void render(ESIContext esiContext, StringBuilder result) {
-        // TODO - placeholder for now
-        if (this != null)
-            return;
-        throw new UnsupportedOperationException();
+        for (ESITag kid : getChildren())
+            kid.render(esiContext, result);
+    }
+
+    @Override
+    public boolean pickMe() {
+        // TODO really evaluate the expression to see if pickMe() should return true.
+
+        return true;
+//        throw new UnsupportedOperationException();
+
     }
 }

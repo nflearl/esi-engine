@@ -25,4 +25,9 @@ public abstract class ESIBase implements ESITag {
         if (!getChildren().isEmpty())
             throw new IllegalStateException("This tag type should not have any embedded tags.");
     }
+
+    @Override
+    public boolean pickMe() {
+        return false;
+    }
 }

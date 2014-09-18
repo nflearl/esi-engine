@@ -19,4 +19,6 @@ public interface ESITag {
     String renderOrigEnd(); // Render the end tag version
 
     void setChildren(List<ESITag> children);
+
+    boolean pickMe();
 }
