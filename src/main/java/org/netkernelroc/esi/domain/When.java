@@ -39,7 +39,7 @@ public class When extends ESIBase {
     }
 
     @Override
-    public boolean pickMe() {
+    public boolean isChooseCase() {
         // TODO really evaluate the expression to see if pickMe() should return true.
 
         return false;

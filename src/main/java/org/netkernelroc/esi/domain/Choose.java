@@ -19,7 +19,7 @@ public class Choose extends StartOrEnd {
     @Override
     public void render(ESIContext esiContext, StringBuilder result) {
         for (ESITag kid : getChildren()) {
-            if (kid.pickMe()) {
+            if (kid.isChooseCase()) {
                 kid.render(esiContext, result);
                 return;
             }

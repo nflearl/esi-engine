@@ -27,7 +27,7 @@ public abstract class ESIBase implements ESITag {
     }
 
     @Override
-    public boolean pickMe() {
+    public boolean isChooseCase() {
         return false;
     }
 }

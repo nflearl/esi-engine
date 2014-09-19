@@ -20,5 +20,5 @@ public interface ESITag {
 
     void setChildren(List<ESITag> children);
 
-    boolean pickMe();
+    boolean isChooseCase();
 }
