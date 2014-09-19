@@ -26,7 +26,8 @@ public abstract class StartOrEnd extends ESIBase {
 
     @Override
     public void render(ESIContext esiContext, StringBuilder result) {
-
-        throw new UnsupportedOperationException();
+        for (ESITag kid : getChildren()) {
+            kid.render(esiContext, result);
+        }
     }
 }

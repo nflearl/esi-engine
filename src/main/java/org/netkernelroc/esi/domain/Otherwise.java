@@ -20,10 +20,4 @@ public class Otherwise extends StartOrEnd {
     public boolean pickMe() {
         return true;
     }
-
-    public void render(ESIContext esiContext, StringBuilder result) {
-        for (ESITag kid : getChildren()) {
-            kid.render(esiContext, result);
-        }
-    }
 }
