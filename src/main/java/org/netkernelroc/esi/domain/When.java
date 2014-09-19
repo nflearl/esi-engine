@@ -42,7 +42,7 @@ public class When extends ESIBase {
     public boolean pickMe() {
         // TODO really evaluate the expression to see if pickMe() should return true.
 
-        return true;
+        return false;
 //        throw new UnsupportedOperationException();
 
     }
