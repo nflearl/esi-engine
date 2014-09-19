@@ -3,7 +3,7 @@ host = req.getArgumentValue("host");
 port = req.getArgumentValue("port");
 path = req.getArgumentValue("path");
 
-context.logRaw(org.netkernel.layer0.nkf.INKFLocale.LEVEL_INFO, "begin log");
+// context.logRaw(org.netkernel.layer0.nkf.INKFLocale.LEVEL_INFO, "begin log");
 
 originPath = context.source("active:omr+host@" + host) + path;
 context.logRaw(org.netkernel.layer0.nkf.INKFLocale.LEVEL_INFO, originPath);
@@ -19,4 +19,4 @@ result = context.issueRequest(engineReq);
 // context.logRaw(org.netkernel.layer0.nkf.INKFLocale.LEVEL_INFO, "Result: " + result);
 context.createResponseFrom(result);
 
-context.logRaw(org.netkernel.layer0.nkf.INKFLocale.LEVEL_INFO, "end log");
+// context.logRaw(org.netkernel.layer0.nkf.INKFLocale.LEVEL_INFO, "end log");
