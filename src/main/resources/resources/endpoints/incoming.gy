@@ -15,6 +15,8 @@ engineReq = context.createRequest("active:esi-engine");
 engineReq.addArgument("payload", originContents);
 engineReq.addArgument("host", host);
 engineReq.addArgument("port", port);
+engineReq.addArgument("path", path);
+
 result = context.issueRequest(engineReq);
 // context.logRaw(org.netkernel.layer0.nkf.INKFLocale.LEVEL_INFO, "Result: " + result);
 response = context.createResponseFrom(result);

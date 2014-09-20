@@ -27,7 +27,6 @@ public class VariableSubstituterTest {
     static {
         valueMap.put("id", "ID_VALUE");
         valueMap.put("pageType", "PAGE_TYPE_VALUE");
-        valueMap.put("REQUEST_PATH", "REQUEST_PATH_VALUE");
         valueMap.put("photoId", "PHOTO_ID_VALUE");
         valueMap.put("mediaType", "MEDIA_TYPE_VALUE");
 
@@ -62,6 +61,11 @@ public class VariableSubstituterTest {
             public String lookupHttpParam(String key) {
                 return queryParamsMap.get(key);
             }
+
+            @Override
+            public String getPath() {
+                return "REQUEST_PATH_VALUE";
+            }
         };
     }
 
@@ -85,7 +89,7 @@ public class VariableSubstituterTest {
                 "$(mediaType)";
         String expectedResult = "/cda-web/head.htm?css=assets/css/gameday-all-min.css&css=" +
                 "assets/css/custmodborderwhitebg.css&css=assets/css/gameday-top-module.css&id=" +
-                "&pageType=&requestPath=&photoId=&mediaType=";
+                "&pageType=&requestPath=REQUEST_PATH_VALUE&photoId=&mediaType=";
         assertEquals(expectedResult, varSubNoValues.substitute(src));
     }
 
@@ -108,7 +112,7 @@ public class VariableSubstituterTest {
                 "photoId=$(photoId)&mediaType=$(mediaType)";
 
         String expectedResults = "/cda-web/head.htm?css=assets/css/gameday-all-min.css&css=assets/css/custmodborderwhitebg.css&" +
-                "css=assets/css/gameday-top-module.css&id=&pageType=&requestPath=&" +
+                "css=assets/css/gameday-top-module.css&id=&pageType=&requestPath=REQUEST_PATH_VALUE&" +
                 "photoId=&mediaType=";
 
         assertEquals(expectedResults, varSubNoValues.substitute(src));

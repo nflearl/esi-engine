@@ -23,13 +23,15 @@ public class RenderResource extends StandardAccessorImpl {
         String payload = context.getThisRequest().getArgumentValue("payload");
         String host = context.getThisRequest().getArgumentValue("host");
         String port = context.getThisRequest().getArgumentValue("port");
+        String path = context.getThisRequest().getArgumentValue("path");
 
         RenderEngine renderEngine = new RenderEngine(payload);
-        ESIContext esiContext = buildContext(context, host, port);
+        ESIContext esiContext = buildContext(context, host, port, path);
         context.createResponseFrom(renderEngine.renderedResults(esiContext).toString().trim());
     }
 
-    private ESIContext buildContext(final INKFRequestContext context, final String host, final String port) {
+    private ESIContext buildContext(final INKFRequestContext context, final String host, final String port,
+                                    final String path) {
         return new ESIContext() {
             @Override
             public void assignVariable(String variableName, String value) {
@@ -92,6 +94,11 @@ public class RenderResource extends StandardAccessorImpl {
                 } catch (NKFException nkfe) {
                     throw new RuntimeException(nkfe);
                 }
+            }
+
+            @Override
+            public String getPath() {
+                return path;
             }
         };
     }

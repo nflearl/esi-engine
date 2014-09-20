@@ -10,4 +10,6 @@ public interface ESIContext {
 
     String resolveInclude(String relativePath);
     String lookupHttpParam(String key);
+
+    String getPath();
 }

@@ -7,6 +7,7 @@ import org.netkernelroc.esi.rendering.ESIContext;
  */
 public enum ReservedHttpVariables {
 
+    // ESI Spec
     HTTP_ACCEPT_LANGUAGE {
         @Override
         public String render(String argument, ESIContext context) {
@@ -37,7 +38,14 @@ public enum ReservedHttpVariables {
         public String render(String argument, ESIContext context) {
             return context.lookupHttpParam(argument);
         }
-    };
+    // Akamai Extensions
+    }, REQUEST_PATH {
+        @Override
+        public String render(String argument, ESIContext context) {
+            return context.getPath();
+        }
+    }
+    ;
 
     public abstract String render(String argument, ESIContext context);
 }
