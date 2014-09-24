@@ -37,7 +37,6 @@
                                     <group name="port">
                                         <regex type="integer"/>
                                     </group>
-                                    /
                                     <group name="path">
                                         <regex type="anything"/>
                                     </group>

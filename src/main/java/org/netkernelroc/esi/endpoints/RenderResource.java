@@ -26,7 +26,7 @@ public class RenderResource extends StandardAccessorImpl {
         String path = context.getThisRequest().getArgumentValue("path");
 
         RenderEngine renderEngine = new RenderEngine(payload);
-        ESIContext esiContext = buildContext(context, host, port, "/" + path);
+        ESIContext esiContext = buildContext(context, host, port, path);
         context.createResponseFrom(renderEngine.renderedResults(esiContext).toString().trim());
     }
 
