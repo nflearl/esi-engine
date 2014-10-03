@@ -33,7 +33,7 @@ literalExpr : QUOTE VAR_ID QUOTE ;
 variableExpr : OPEN_VAR VAR_ID CLOSE_PAREN ;
 
 functionExpr
-    : '$' FunctionName FunctionArgs;
+    : '$' FunctionName functionArgs;
 
 
 FunctionName :
@@ -41,9 +41,9 @@ FunctionName :
      | 'is_empty'
      ;
 
-FunctionArgs
+functionArgs
     :   '()'
-    |  '(' VAR_ID ')'
+    |  OPEN_PAREN VAR_ID CLOSE_PAREN
     ;
 
 QUOTE       : '\'' ;
