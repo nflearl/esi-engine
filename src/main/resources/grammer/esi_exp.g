@@ -12,7 +12,8 @@ booleanExp
     ;
 
 compoundExpr
-    :   simpleExpr AND simpleExpr
+    :   NOT simpleExpr
+    |   simpleExpr AND simpleExpr
     ;
     
 simpleExpr
@@ -65,6 +66,7 @@ CLOSE_QUOTED_ARG : '\'}' ;
 VAR_ID      : ('a'..'z'|'A'..'Z'|'_')+ ;      // match identifiers
 
 AND : '&&' | '&' ;
+NOT : '!' ;
 
 /* A number: can be an integer value */
 Number
