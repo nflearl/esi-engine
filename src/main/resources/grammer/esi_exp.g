@@ -25,9 +25,12 @@ comparisonExpr
     ;
 
 varOrLiteral
-    :   LITERAL_VALUE
-    |   VARIABLE
+    :   literalExpr
+    |   variableExpr
     ;
+
+literalExpr : QUOTE VAR_ID QUOTE ;
+variableExpr : OPEN_VAR VAR_ID CLOSE_PAREN ;
 
 functionExpr
     : '$' FunctionName FunctionArgs;
@@ -43,9 +46,11 @@ FunctionArgs
     |  '(' VAR_ID ')'
     ;
 
-LITERAL_VALUE : '\'' VAR_ID '\'' ;
-VARIABLE :   '$(' VAR_ID ')' ;
-VAR_ID  :   ('a'..'z'|'A'..'Z')+ ;      // match identifiers
+QUOTE       : '\'' ;
+OPEN_VAR  : '$(' ;
+OPEN_PAREN : '(' ;
+CLOSE_PAREN : ')' ;
+VAR_ID      : ('a'..'z'|'A'..'Z')+ ;      // match identifiers
 
 AND : '&&' | '&' ;
 
