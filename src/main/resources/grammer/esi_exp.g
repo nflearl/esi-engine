@@ -42,7 +42,7 @@ variableExpr
 varWithArg : VAR_ID OPEN_ARG VAR_ID CLOSE_ARG ;
 varWithArgQuoted : VAR_ID OPEN_QUOTED_ARG VAR_ID CLOSE_QUOTED_ARG ;
 
-matchValue : TRIPLE_QUOTE 'abcdef' TRIPLE_QUOTE;
+matchValue : MATCH_VALUE_REGEX ;
 
 functionExpr
     : '$' FunctionName functionArgs;
@@ -91,3 +91,5 @@ WS
                 skip();
             }
     ;
+
+MATCH_VALUE_REGEX : TRIPLE_QUOTE ~(QUOTE)* TRIPLE_QUOTE;
