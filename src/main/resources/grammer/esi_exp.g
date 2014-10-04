@@ -14,11 +14,13 @@ booleanExp
 compoundExpr
     :   NOT simpleExpr
     |   simpleExpr AND simpleExpr
+    |   simpleExpr MATCH_FUNC matchValue
     ;
-    
+
 simpleExpr
     :   functionExpr
     |   comparisonExpr
+    |   varOrLiteral
     ;
 
 comparisonExpr
@@ -40,6 +42,8 @@ variableExpr
 varWithArg : VAR_ID OPEN_ARG VAR_ID CLOSE_ARG ;
 varWithArgQuoted : VAR_ID OPEN_QUOTED_ARG VAR_ID CLOSE_QUOTED_ARG ;
 
+matchValue : TRIPLE_QUOTE 'abcdef' TRIPLE_QUOTE;
+
 functionExpr
     : '$' FunctionName functionArgs;
 
@@ -55,6 +59,8 @@ functionArgs
     |  OPEN_PAREN variableExpr CLOSE_PAREN
     ;
 
+MATCH_FUNC     : 'matches' ;
+TRIPLE_QUOTE : '\'\'\'' ;
 QUOTE       : '\'' ;
 OPEN_VAR  : '$(' ;
 OPEN_PAREN : '(' ;
