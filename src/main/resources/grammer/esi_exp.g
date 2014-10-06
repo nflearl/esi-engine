@@ -7,6 +7,7 @@ eval
 
 /* Addition and subtraction have the lowest precedence. */
 booleanExp
+    :   OPEN_PAREN booleanExp CLOSE_PAREN
     :   compoundExpr
     |	simpleExpr
     ;
