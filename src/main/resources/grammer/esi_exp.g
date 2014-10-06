@@ -14,6 +14,7 @@ booleanExp
 
 compoundExpr
     :   NOT simpleExpr
+    |   simpleExpr AND simpleExpr
     |   simpleExpr AND compoundExpr
     |   simpleExpr MATCH_FUNC matchValue
     ;
