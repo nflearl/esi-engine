@@ -14,6 +14,7 @@ booleanExp
 
 compoundExpr
     :   (NOT)* simpleExpr (AND (NOT)*simpleExpr)+
+    |   (NOT)* simpleExpr (OR (NOT)*simpleExpr)+
     |   simpleExpr MATCH_FUNC matchValue
     ;
 
@@ -72,6 +73,7 @@ CLOSE_QUOTED_ARG : '\'}' ;
 VAR_ID      : ('a'..'z'|'A'..'Z'|'_')+ ;      // match identifiers
 
 AND : '&&' | '&' ;
+OR : '|' | '||' ;
 NOT : '!' ;
 
 /* A number: can be an integer value */
