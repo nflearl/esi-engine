@@ -14,7 +14,7 @@ orExp
     ;
 
 andExpr
-    :  comparisonExpr (AND comparisonExpr)*
+    :  notExpr (AND notExpr)*
     ;
 
 notExpr
@@ -23,7 +23,7 @@ notExpr
     ;
 
 comparisonExpr
-    :   term EQUALS term
+    :   term (EQUALS term)*
     ;
 
 term 
