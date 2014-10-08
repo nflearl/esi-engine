@@ -7,29 +7,29 @@ eval
 
 /* Addition and subtraction have the lowest precedence. */
 booleanExp
-    :   OPEN_PAREN booleanExp CLOSE_PAREN
-    |   compoundExpr
-    |	simpleExpr
+    :  orExp
     ;
 
-compoundExpr
-    :   (NOT)* simpleExpr (AND (NOT)*simpleExpr)+
-    |   (NOT)* simpleExpr (OR (NOT)*simpleExpr)+
-    |   simpleExpr MATCH_FUNC matchValue
+orExp
+    :  andExpr (OR andExpr)*
     ;
 
-simpleExpr
-    :   functionExpr
-    |   comparisonExpr
-    |   varOrLiteral
+andExpr
+    :  notExpr (AND notExpr)*
+    ;
+
+notExpr
+    :  NOT comparisonExpr
+    |  comparisonExpr
     ;
 
 comparisonExpr
-    :   varOrLiteral '==' varOrLiteral
+    :   varOrLiteral ('==' varOrLiteral)*
     ;
 
 varOrLiteral
-    :   literalExpr
+    :   functionExpr
+    |   literalExpr
     |   variableExpr
     ;
 
@@ -38,6 +38,7 @@ variableExpr
     : OPEN_VAR VAR_ID CLOSE_PAREN           // $(HTTP_HOST)
     | OPEN_VAR varWithArg CLOSE_PAREN    // $(QUERY_STRING{param})
     | OPEN_VAR varWithArgQuoted CLOSE_PAREN    // $(QUERY_STRING{'param'})
+    | OPEN_PAREN booleanExp CLOSE_PAREN
     ;
 
 varWithArg : VAR_ID OPEN_ARG VAR_ID CLOSE_ARG ;
@@ -60,6 +61,7 @@ functionArgs
     |  OPEN_PAREN variableExpr CLOSE_PAREN
     ;
 
+EQUALS 	:	 '==' ;
 MATCH_FUNC     : 'matches' ;
 TRIPLE_QUOTE : '\'\'\'' ;
 QUOTE       : '\'' ;
