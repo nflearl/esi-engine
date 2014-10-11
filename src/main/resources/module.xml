@@ -109,4 +109,22 @@
             <uri>urn:org:netkernel:client:http</uri>
         </import>
     </rootspace>
+
+    <rootspace name="esi_espression" uri="org.netkernelroc:esi:expression">
+        <fileset>
+            <regex>res:/grammar/.*</regex>
+        </fileset>
+        <endpoint>
+            <grammar>
+                <active>
+                    <identifier>active:ESIExpressionRuntime</identifier>
+                    <argument name="expression" min="1" max="1"/>
+                </active>
+            </grammar>
+            <class>org.netkernelroc.esi.expression.ESIExpressionRuntime</class>
+        </endpoint>
+        <import>
+            <uri>urn:org:netkernel:lang:antlr</uri>
+        </import>
+    </rootspace>
 </module>
