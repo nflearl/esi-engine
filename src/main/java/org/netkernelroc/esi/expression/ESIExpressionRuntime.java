@@ -10,8 +10,7 @@ public class ESIExpressionRuntime extends StandardAccessorImpl {
     {
         String expression = context.getThisRequest().getArgumentValue("expression");
         INKFRequest antlrReq = context.createRequest("active:antlr");
-//        antlrReq.addArgument("operator", "file:/grammar/esi_exp.g");
-        antlrReq.addArgument("operator", "file:/work5/esi/github/esi-engine/src/main/resources/grammar/esi_exp.g");
+        antlrReq.addArgument("operator", "res:/grammar/esi_exp.g");
         antlrReq.addArgumentByValue("operand", expression);
         antlrReq.addArgumentByValue("startrule", "eval");
 
