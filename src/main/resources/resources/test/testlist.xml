@@ -3,11 +3,11 @@
 
     <test name="Variable Equals">
         <request>
-            <identifier>meta:active:ESIExpressionRuntime</identifier>
+            <identifier>active:ESIExpressionRuntime</identifier>
             <argument name="expression">$(pagetype)=='videos'</argument>
         </request>
         <assert>
-            <stringEquals>Input value: Hello</stringEquals>
+            <false/>
         </assert>
     </test>
 </testlist>

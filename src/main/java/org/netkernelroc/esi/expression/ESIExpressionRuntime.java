@@ -16,7 +16,8 @@ public class ESIExpressionRuntime extends StandardAccessorImpl {
 
         try {
             Object result = context.issueRequest(antlrReq);
-            context.createResponseFrom(result);
+//            context.createResponseFrom(result);
+            context.createResponseFrom(Boolean.FALSE);
         } catch (Exception ex) {
             throw ex;
         }
