@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests>
+    <test>
+        <id>test:urn:org.netkernelroc:esi:expression</id>
+        <name>esi_expression</name>
+        <desc>Expression Language Tests</desc>
+        <uri>res:/resources/test/testlist.xml</uri>
+    </test>
+</tests>
