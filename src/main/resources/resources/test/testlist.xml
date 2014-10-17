@@ -10,4 +10,67 @@
             <false/>
         </assert>
     </test>
+
+    <test name="ID Existences Check">
+        <request>
+            <identifier>active:ESIExpressionRuntime</identifier>
+            <argument name="expression">$exists($(id))</argument>
+        </request>
+        <assert>
+            <false/>
+        </assert>
+    </test>
+
+    <test name="Compound Comparison">
+        <request>
+            <identifier>active:ESIExpressionRuntime</identifier>
+            <argument name="expression">$exists($(id)) &amp;&amp; (($(pagetype) == 'roster') || ($(pagetype) == 'cheerleaders') || ($(pagetype) == 'coaches') || ($(pagetype) == 'staff'))
+            </argument>
+        </request>
+        <assert>
+            <false/>
+        </assert>
+    </test>
+
+    <test name="Channel Name Existence">
+        <request>
+            <identifier>active:ESIExpressionRuntime</identifier>
+            <argument name="expression">$exists($(QUERY_STRING{'channelName'}))</argument>
+        </request>
+        <assert>
+            <false/>
+        </assert>
+    </test>
+
+    <test name="Channel Fragment Existence">
+        <request>
+            <identifier>active:ESIExpressionRuntime</identifier>
+            <argument name="expression">$exists(channelFragment) &amp;&amp; !$is_empty(channelFragment)</argument>
+        </request>
+        <assert>
+            <false/>
+        </assert>
+    </test>
+
+    <test name="Variable Equals">
+        <request>
+            <identifier>active:ESIExpressionRuntime</identifier>
+            <argument name="expression">$exists(seoTitle) &amp;&amp; $(seoTitle)=='channel'</argument>
+        </request>
+        <assert>
+            <false/>
+        </assert>
+    </test>
+
+    <test name="SEO Title">
+        <request>
+            <identifier>active:ESIExpressionRuntime</identifier>
+            <argument name="expression">($(seoTitle) == 'channel')</argument>
+        </request>
+        <assert>
+            <false/>
+        </assert>
+    </test>
+
+
 </testlist>
