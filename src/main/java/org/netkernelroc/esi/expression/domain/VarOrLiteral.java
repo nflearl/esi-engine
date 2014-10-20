@@ -2,6 +2,10 @@ package org.netkernelroc.esi.expression.domain;
 
 import org.netkernel.layer0.representation.IHDSNode;
 
+/*
+ * TODO - having this class and the base class VariableOrLiteralExpression is a bit confusing.  Should find a way
+ * to consolidate/simplify.
+ */
 public class VarOrLiteral extends BaseExpression {
 
     public static final String NAME = "varOrLiteral";
