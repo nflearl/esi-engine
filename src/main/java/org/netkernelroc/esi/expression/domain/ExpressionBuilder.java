@@ -52,4 +52,8 @@ public class ExpressionBuilder {
     private interface ExpressionFactory {
         ESIExpression build(ExpressionBuilder eb);
     }
+
+    public ESIContext getEsiContext() {
+        return esiContext;
+    }
 }

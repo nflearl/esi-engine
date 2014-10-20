@@ -15,7 +15,17 @@ public class VariableExpression extends BaseExpression {
     @Override
     public Comparable evaluateToLiteral(IHDSNode[] children) {
 
-        throw new UnsupportedOperationException();
+        for (IHDSNode child : children) {
+            if ("VAR_ID".equals(child.getName()))
+              return getIdValue(child);
+        }
 
+        return "";
     }
+
+    private Comparable getIdValue(IHDSNode child) {
+        String variableName = child.getValue().toString();
+        return getEb().getEsiContext().retrieveVariable(variableName);
+    }
+
 }

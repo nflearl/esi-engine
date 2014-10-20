@@ -37,4 +37,8 @@ public abstract class BaseExpression implements ESIExpression {
     public Comparable evaluateToLiteral(IHDSNode[] children) {
         return evaluate(children);
     }
+
+    protected ExpressionBuilder getEb() {
+        return eb;
+    }
 }

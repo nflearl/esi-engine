@@ -134,12 +134,18 @@
         <fileset>
             <regex>res:/resources/test/.*</regex>
         </fileset>
-        <endpoint><!-- stop any configuration from module under test from polluting address space -->
-            <prototype>Limiter</prototype>
-            <grammar>res:/etc/
-                <regex type="anything"/>
-            </grammar>
-        </endpoint>
+        <overlay>
+            <!-- ScratchPad allows for saving/retrieving the assign variables. -->
+            <prototype>layer1.Endpoint.ScratchPad</prototype>
+            <space>
+                <endpoint><!-- stop any configuration from module under test from polluting address space -->
+                    <prototype>Limiter</prototype>
+                    <grammar>res:/etc/
+                        <regex type="anything"/>
+                    </grammar>
+                </endpoint>
+            </space>
+        </overlay>
         <import><!-- import the main space which we are testing -->
             <uri>org.netkernelroc:esi:expression</uri>
         </import>
