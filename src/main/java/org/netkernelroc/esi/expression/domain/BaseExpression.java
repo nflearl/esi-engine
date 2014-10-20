@@ -4,9 +4,10 @@ import org.netkernel.layer0.representation.IHDSNode;
 
 public abstract class BaseExpression implements ESIExpression {
 
-    protected ExpressionBuilder eb = new ExpressionBuilder();
+    protected final ExpressionBuilder eb;
 
-    protected BaseExpression() {
+    protected BaseExpression(ExpressionBuilder builder) {
+        eb = builder;
     }
 
     boolean evaluateZeroChildren() {

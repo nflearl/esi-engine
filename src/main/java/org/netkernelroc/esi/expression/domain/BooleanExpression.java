@@ -4,6 +4,7 @@ public class BooleanExpression extends BaseExpression {
 
     public static final String NAME = "booleanExp";
 
-    public BooleanExpression() {
+    protected BooleanExpression(ExpressionBuilder builder) {
+        super(builder);
     }
 }

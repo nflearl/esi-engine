@@ -4,7 +4,9 @@ import org.netkernel.layer0.nkf.INKFRequest;
 import org.netkernel.layer0.nkf.INKFRequestContext;
 import org.netkernel.layer0.representation.IHDSNode;
 import org.netkernel.module.standard.endpoint.StandardAccessorImpl;
+import org.netkernelroc.esi.endpoints.ESIContextImpl;
 import org.netkernelroc.esi.expression.domain.ExpressionBuilder;
+import org.netkernelroc.esi.rendering.ESIContext;
 
 public class ESIExpressionRuntime extends StandardAccessorImpl {
 
@@ -17,8 +19,9 @@ public class ESIExpressionRuntime extends StandardAccessorImpl {
         antlrReq.addArgumentByValue("startrule", "eval");
 
         try {
+            ESIContext esiContext = new ESIContextImpl(context);
             IHDSNode result = (IHDSNode) context.issueRequest(antlrReq);
-            boolean computedResult = new ExpressionBuilder().build(result).evaluate(result.getChildren());
+            boolean computedResult = new ExpressionBuilder(esiContext).build(result).evaluate(result.getChildren());
             context.createResponseFrom(computedResult);
         } catch (Exception ex) {
             throw ex;

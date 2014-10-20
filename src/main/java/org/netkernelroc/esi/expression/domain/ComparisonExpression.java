@@ -9,7 +9,8 @@ public class ComparisonExpression extends BaseExpression {
     private static final int COMPARE_OP_IDX = 1;
     private static final int RHS_IDX = 2;
 
-    public ComparisonExpression() {
+    public ComparisonExpression(ExpressionBuilder builder) {
+        super(builder);
     }
 
     @Override
