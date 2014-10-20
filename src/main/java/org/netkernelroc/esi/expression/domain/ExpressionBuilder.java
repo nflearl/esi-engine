@@ -42,6 +42,12 @@ public class ExpressionBuilder {
                 return new VariableExpression(ExpressionBuilder.this);
             }
         });
+        exprMap.put(LiteralExpression.NAME, new ExpressionFactory() {
+            @Override
+            public ESIExpression build(ExpressionBuilder eb) {
+                return new LiteralExpression(ExpressionBuilder.this);
+            }
+        });
     }
 
     public ESIExpression build(IHDSNode root) {

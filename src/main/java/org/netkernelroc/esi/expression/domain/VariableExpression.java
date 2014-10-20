@@ -2,7 +2,7 @@ package org.netkernelroc.esi.expression.domain;
 
 import org.netkernel.layer0.representation.IHDSNode;
 
-public class VariableExpression extends BaseExpression {
+public class VariableExpression extends VariableOrLiteralExpression {
 
     public static final String NAME = "variableExpr";
 
@@ -13,17 +13,7 @@ public class VariableExpression extends BaseExpression {
     }
 
     @Override
-    public Comparable evaluateToLiteral(IHDSNode[] children) {
-
-        for (IHDSNode child : children) {
-            if ("VAR_ID".equals(child.getName()))
-              return getIdValue(child);
-        }
-
-        return "";
-    }
-
-    private Comparable getIdValue(IHDSNode child) {
+    protected Comparable getIdValue(IHDSNode child) {
         String variableName = child.getValue().toString();
         return getEb().getEsiContext().retrieveVariable(variableName);
     }
