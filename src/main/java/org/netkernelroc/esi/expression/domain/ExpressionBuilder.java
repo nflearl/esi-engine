@@ -60,6 +60,12 @@ public class ExpressionBuilder {
                 return new FunctionArgumentExpression(ExpressionBuilder.this);
             }
         });
+        exprMap.put(AndExpression.NAME, new ExpressionFactory() {
+            @Override
+            public ESIExpression build(ExpressionBuilder eb) {
+                return new AndExpression(ExpressionBuilder.this);
+            }
+        });
     }
 
     public ESIExpression build(IHDSNode root) {
