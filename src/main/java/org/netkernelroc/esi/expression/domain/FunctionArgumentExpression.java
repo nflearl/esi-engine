@@ -14,7 +14,7 @@ public class FunctionArgumentExpression extends BaseExpression {
     public Comparable evaluateToLiteral(IHDSNode[] children) {
 
         for (IHDSNode child : children) {
-            if ("variableExpr".equals(child.getName())) {
+            if ("variableExpr".equals(child.getName()) || "VAR_ID".equals(child.getName())) {
                 ESIExpression expr = getEb().build(child);
                 return expr.evaluateToLiteral(child.getChildren());
             }
