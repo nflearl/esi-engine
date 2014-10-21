@@ -1,8 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testlist>
 
+    <test name="Variable Equals No Init">
+        <request>
+            <identifier>active:ESIExpressionRuntime</identifier>
+            <argument name="expression">$(pagetype)=='videos'</argument>
+        </request>
+        <assert>
+            <false/>
+        </assert>
+    </test>
+
     <test name="Variable Equals">
         <request>
+            <header name="XXX-Scratch:esi/assign/pagetype">
+                <literal type="string">videos</literal>
+            </header>
             <identifier>active:ESIExpressionRuntime</identifier>
             <argument name="expression">$(pagetype)=='videos'</argument>
         </request>
@@ -71,6 +84,5 @@
             <false/>
         </assert>
     </test>
-
 
 </testlist>
