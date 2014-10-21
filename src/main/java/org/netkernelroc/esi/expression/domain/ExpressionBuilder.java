@@ -48,6 +48,18 @@ public class ExpressionBuilder {
                 return new LiteralExpression(ExpressionBuilder.this);
             }
         });
+        exprMap.put(FunctionExpression.NAME, new ExpressionFactory() {
+            @Override
+            public ESIExpression build(ExpressionBuilder eb) {
+                return new FunctionExpression(ExpressionBuilder.this);
+            }
+        });
+        exprMap.put(FunctionArgumentExpression.NAME, new ExpressionFactory() {
+            @Override
+            public ESIExpression build(ExpressionBuilder eb) {
+                return new FunctionArgumentExpression(ExpressionBuilder.this);
+            }
+        });
     }
 
     public ESIExpression build(IHDSNode root) {
