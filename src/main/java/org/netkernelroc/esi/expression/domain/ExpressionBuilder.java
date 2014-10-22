@@ -72,6 +72,12 @@ public class ExpressionBuilder {
                 return new AndExpression(ExpressionBuilder.this);
             }
         });
+        exprMap.put(OrExpression.NAME, new ExpressionFactory() {
+            @Override
+            public ESIExpression build(ExpressionBuilder eb) {
+                return new OrExpression(ExpressionBuilder.this);
+            }
+        });
     }
 
     public ESIExpression build(IHDSNode root) {

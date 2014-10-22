@@ -29,6 +29,12 @@
 
     <test name="Compound Comparison">
         <request>
+            <header name="XXX-Scratch:esi/assign/id">
+                <literal type="string">5678</literal>
+            </header>
+            <header name="XXX-Scratch:esi/assign/pagetype">
+                <literal type="string">roster</literal>
+            </header>
             <identifier>active:ESIExpressionRuntime</identifier>
             <argument name="expression">$exists($(id)) &amp;&amp;
                 (($(pagetype) == 'roster') || ($(pagetype) == 'cheerleaders') ||
@@ -36,7 +42,7 @@
             </argument>
         </request>
         <assert>
-            <false/>
+            <true/>
         </assert>
     </test>
 
