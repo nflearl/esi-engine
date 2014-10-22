@@ -3,27 +3,22 @@
 
     <test name="Variable Equals">
         <request>
-            <header name="XXX-Scratch:esi/assign/pagetype">
-                <literal type="string">videos</literal>
-            </header>
             <identifier>active:ESIExpressionRuntime</identifier>
             <argument name="expression">$(pagetype)=='videos'</argument>
         </request>
         <assert>
-            <true/>
+            <false/>
         </assert>
     </test>
 
+
     <test name="ID Existences Check">
         <request>
-            <header name="XXX-Scratch:esi/assign/id">
-                <literal type="string">1234</literal>
-            </header>
             <identifier>active:ESIExpressionRuntime</identifier>
             <argument name="expression">$exists($(id))</argument>
         </request>
         <assert>
-            <true/>
+            <false/>
         </assert>
     </test>
 
@@ -32,7 +27,7 @@
             <identifier>active:ESIExpressionRuntime</identifier>
             <argument name="expression">$exists($(id)) &amp;&amp;
                 (($(pagetype) == 'roster') || ($(pagetype) == 'cheerleaders') ||
-                ($(pagetype) == 'coaches') || ($(pagetype) == 'staff'))
+                    ($(pagetype) == 'coaches') || ($(pagetype) == 'staff'))
             </argument>
         </request>
         <assert>

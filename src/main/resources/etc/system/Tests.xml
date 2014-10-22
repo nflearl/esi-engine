@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tests>
     <test>
-        <id>test:urn:org.netkernelroc:esi:expression</id>
+        <id>test:urn:org.netkernelroc:esi:expression:no_init</id>
+        <name>esi_expression no intialization</name>
+        <desc>Expression Language Tests No Initialization</desc>
+        <uri>res:/resources/test/testlist_no_init.xml</uri>
+    </test>
+    <test>
+        <id>test:urn:org.netkernelroc:esi:expression:happy</id>
         <name>esi_expression</name>
         <desc>Expression Language Tests</desc>
         <uri>res:/resources/test/testlist.xml</uri>
