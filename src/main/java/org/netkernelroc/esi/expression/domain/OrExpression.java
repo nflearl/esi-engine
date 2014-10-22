@@ -23,7 +23,7 @@ public class OrExpression extends BaseExpression {
         if (children.length == 1 || children.length < 3)
             return false;
 
-        if ("OR".equals(children[1].getName()))
+        if (!"OR".equals(children[1].getName()))
             throw new UnsupportedOperationException("Unknown operation: " + children[1].getName());
 
         return evaluate(Arrays.copyOfRange(children, 2, children.length));

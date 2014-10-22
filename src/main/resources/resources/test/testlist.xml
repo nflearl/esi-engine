@@ -27,13 +27,79 @@
         </assert>
     </test>
 
-    <test name="Compound Comparison">
+    <test name="Compound Comparison First Or">
         <request>
             <header name="XXX-Scratch:esi/assign/id">
                 <literal type="string">5678</literal>
             </header>
             <header name="XXX-Scratch:esi/assign/pagetype">
                 <literal type="string">roster</literal>
+            </header>
+            <identifier>active:ESIExpressionRuntime</identifier>
+            <argument name="expression">$exists($(id)) &amp;&amp;
+                (($(pagetype) == 'roster') || ($(pagetype) == 'cheerleaders') ||
+                ($(pagetype) == 'coaches') || ($(pagetype) == 'staff'))
+            </argument>
+        </request>
+        <assert>
+            <true/>
+        </assert>
+    </test>
+
+    <test name="Compound Comparison Second Or">
+        <request>
+            <header name="no-cache">
+                <literal type="boolean">true</literal>
+            </header>
+            <header name="XXX-Scratch:esi/assign/id">
+                <literal type="string">5678</literal>
+            </header>
+            <header name="XXX-Scratch:esi/assign/pagetype">
+                <literal type="string">cheerleaders</literal>
+            </header>
+            <identifier>active:ESIExpressionRuntime</identifier>
+            <argument name="expression">$exists($(id)) &amp;&amp;
+                (($(pagetype) == 'roster') || ($(pagetype) == 'cheerleaders') ||
+                ($(pagetype) == 'coaches') || ($(pagetype) == 'staff'))
+            </argument>
+        </request>
+        <assert>
+            <true/>
+        </assert>
+    </test>
+
+    <test name="Compound Comparison Third Or">
+        <request>
+            <header name="no-cache">
+                <literal type="boolean">true</literal>
+            </header>
+            <header name="XXX-Scratch:esi/assign/id">
+                <literal type="string">5678</literal>
+            </header>
+            <header name="XXX-Scratch:esi/assign/pagetype">
+                <literal type="string">coaches</literal>
+            </header>
+            <identifier>active:ESIExpressionRuntime</identifier>
+            <argument name="expression">$exists($(id)) &amp;&amp;
+                (($(pagetype) == 'roster') || ($(pagetype) == 'cheerleaders') ||
+                ($(pagetype) == 'coaches') || ($(pagetype) == 'staff'))
+            </argument>
+        </request>
+        <assert>
+            <true/>
+        </assert>
+    </test>
+
+    <test name="Compound Comparison Fourth Or">
+        <request>
+            <header name="no-cache">
+                <literal type="boolean">true</literal>
+            </header>
+            <header name="XXX-Scratch:esi/assign/id">
+                <literal type="string">5678</literal>
+            </header>
+            <header name="XXX-Scratch:esi/assign/pagetype">
+                <literal type="string">staff</literal>
             </header>
             <identifier>active:ESIExpressionRuntime</identifier>
             <argument name="expression">$exists($(id)) &amp;&amp;
