@@ -37,7 +37,6 @@ public class FunctionExpression extends BaseExpression {
     private String deriveFunctionName(IHDSNode[] children) {
         for (IHDSNode child : children) {
             if ("FunctionName".equals(child.getName())) {
-                ESIExpression expression = getEb().build(child);
                 return child.getValue().toString();
             }
         }
