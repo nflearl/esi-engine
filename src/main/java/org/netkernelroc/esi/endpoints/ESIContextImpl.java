@@ -11,14 +11,6 @@ public class ESIContextImpl implements ESIContext {
     private final String port;
     private final String path;
 
-    public ESIContextImpl(INKFRequestContext context) {
-        this.context = context;
-        // TODO - No good options at this point.  Should clean/refactor this up later.
-        host = null;
-        port = null;
-        path = null;
-    }
-
     public ESIContextImpl(INKFRequestContext context, String host, String port, String path) {
         this.context = context;
         this.host = host;

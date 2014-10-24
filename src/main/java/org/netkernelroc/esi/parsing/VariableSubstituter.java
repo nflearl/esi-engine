@@ -49,6 +49,14 @@ public class VariableSubstituter {
         return sb.toString();
     }
 
+    public String resolve(String varName, String lookupKey) {
+        if (reservedVariable.containsKey(varName)) {
+            return reservedVariable.get(varName).render(lookupKey, context);
+        } else {
+            return context.retrieveVariable(varName);
+        }
+    }
+
     private String extractInnerParameter(String param) {
         String trimmedParam = param.trim();
         if (trimmedParam.isEmpty())

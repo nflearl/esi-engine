@@ -48,6 +48,18 @@ public class ExpressionBuilder {
                 return new VariableExpression(ExpressionBuilder.this);
             }
         });
+        exprMap.put(VarWithArg.NAME, new ExpressionFactory() {
+            @Override
+            public ESIExpression build(ExpressionBuilder eb) {
+                return new VarWithArg(ExpressionBuilder.this);
+            }
+        });
+        exprMap.put(VarWithArg.ALT_NAME, new ExpressionFactory() {
+            @Override
+            public ESIExpression build(ExpressionBuilder eb) {
+                return new VarWithArg(ExpressionBuilder.this);
+            }
+        });
         exprMap.put(LiteralExpression.NAME, new ExpressionFactory() {
             @Override
             public ESIExpression build(ExpressionBuilder eb) {

@@ -14,6 +14,11 @@ public abstract class VariableOrLiteralExpression extends BaseExpression {
         for (IHDSNode child : children) {
             if ("VAR_ID".equals(child.getName()))
               return getIdValue(child);
+
+            if ("varWithArgQuoted".equals(child.getName())) {
+                ESIExpression expr = getEb().build(child);
+                return expr.evaluateToLiteral(child.getChildren());
+            }
         }
 
         return "";

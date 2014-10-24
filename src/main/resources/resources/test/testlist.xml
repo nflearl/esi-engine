@@ -114,16 +114,22 @@
 
     <test name="Channel Name Existence">
         <request>
+            <header name="XXX-Scratch:esi/assign/QUERY_STRING/channelName">
+                <literal type="string">some channel</literal>
+            </header>
             <identifier>active:ESIExpressionRuntime</identifier>
             <argument name="expression">$exists($(QUERY_STRING{'channelName'}))</argument>
         </request>
         <assert>
-            <false/>
+            <true/>
         </assert>
     </test>
 
     <test name="Channel Fragment Existence">
         <request>
+            <header name="XXX-Scratch:esi/assign/channelFragment">
+                <literal type="string">some fragment</literal>
+            </header>
             <identifier>active:ESIExpressionRuntime</identifier>
             <argument name="expression">$exists(channelFragment) &amp;&amp; !$is_empty(channelFragment)</argument>
         </request>
@@ -134,6 +140,9 @@
 
     <test name="Variable Equals">
         <request>
+            <header name="XXX-Scratch:esi/assign/seoTitle">
+                <literal type="string">channel</literal>
+            </header>
             <identifier>active:ESIExpressionRuntime</identifier>
             <argument name="expression">$exists(seoTitle) &amp;&amp; $(seoTitle)=='channel'</argument>
         </request>
@@ -144,11 +153,14 @@
 
     <test name="SEO Title">
         <request>
+            <header name="XXX-Scratch:esi/assign/seoTitle">
+                <literal type="string">channel</literal>
+            </header>
             <identifier>active:ESIExpressionRuntime</identifier>
             <argument name="expression">($(seoTitle) == 'channel')</argument>
         </request>
         <assert>
-            <false/>
+            <true/>
         </assert>
     </test>
 </testlist>
