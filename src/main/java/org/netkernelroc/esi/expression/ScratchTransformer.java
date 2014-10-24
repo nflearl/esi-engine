@@ -3,6 +3,8 @@ package org.netkernelroc.esi.expression;
 import org.netkernel.layer0.nkf.INKFRequestContext;
 import org.netkernel.layer0.util.Utils;
 import org.netkernel.module.standard.endpoint.TransparentOverlayImpl;
+import org.netkernelroc.esi.endpoints.ESITestContextImpl;
+import org.netkernelroc.esi.rendering.ESIContext;
 
 import java.util.Set;
 
@@ -19,6 +21,7 @@ public class ScratchTransformer extends TransparentOverlayImpl {
 
     @Override
     public void onRequest(String s, INKFRequestContext inkfRequestContext) throws Exception {
+        // Initialize all the test parameters into the scratch space
         Set<String> keySet = inkfRequestContext.getThisRequest().getHeaderKeys();
         for (String key : keySet) {
             if (key.startsWith(SCRATCH_PREFIX)) {
@@ -27,6 +30,10 @@ public class ScratchTransformer extends TransparentOverlayImpl {
                 inkfRequestContext.sink(scratchKey, scratchValue);
             }
         }
+
+        // Initialize the context.
+        inkfRequestContext.sink("scratch:" + ESIContext.SCRATCH_SPACE_PATH, new ESITestContextImpl(inkfRequestContext));
+
         Utils.delegateRequestInto(getDelegateSpace(), inkfRequestContext);
     }
 }

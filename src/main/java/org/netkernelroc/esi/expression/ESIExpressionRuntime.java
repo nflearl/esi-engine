@@ -19,7 +19,7 @@ public class ESIExpressionRuntime extends StandardAccessorImpl {
         antlrReq.addArgumentByValue("startrule", "eval");
 
         try {
-            ESIContext esiContext = new ESITestContextImpl(context);
+            ESIContext esiContext = (ESIContext) context.source("scratch:" + ESIContext.SCRATCH_SPACE_PATH);
             IHDSNode result = (IHDSNode) context.issueRequest(antlrReq);
             boolean computedResult = new ExpressionBuilder(esiContext).build(result).evaluate(result.getChildren());
             context.createResponseFrom(computedResult);
