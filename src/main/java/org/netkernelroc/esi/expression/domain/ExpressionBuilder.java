@@ -90,6 +90,12 @@ public class ExpressionBuilder {
                 return new OrExpression(ExpressionBuilder.this);
             }
         });
+        exprMap.put(NotExpression.NAME, new ExpressionFactory() {
+            @Override
+            public ESIExpression build(ExpressionBuilder eb) {
+                return new NotExpression(ExpressionBuilder.this);
+            }
+        });
     }
 
     public ESIExpression build(IHDSNode root) {

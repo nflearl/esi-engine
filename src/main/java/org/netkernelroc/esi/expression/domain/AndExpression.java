@@ -20,8 +20,6 @@ public class AndExpression extends BaseExpression {
         if (children.length != 3)
             throw new IllegalStateException("Expected three parts");
 
-
-        // Only handling equals case for now.  In the future, we could add more operators.
         if (!"AND".equals(children[AND_IDX].getName()))
             throw new UnsupportedOperationException("Unknown operation: " + children[AND_IDX].getName());
         boolean leftHandSide = eb.build(children[LHS_IDX]).evaluate(children[LHS_IDX].getChildren());

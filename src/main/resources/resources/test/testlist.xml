@@ -134,7 +134,7 @@
             <argument name="expression">$exists(channelFragment) &amp;&amp; !$is_empty(channelFragment)</argument>
         </request>
         <assert>
-            <false/>
+            <true/>
         </assert>
     </test>
 
@@ -147,7 +147,7 @@
             <argument name="expression">$exists(seoTitle) &amp;&amp; $(seoTitle)=='channel'</argument>
         </request>
         <assert>
-            <false/>
+            <true/>
         </assert>
     </test>
 
