@@ -14,6 +14,7 @@ public class FunctionExpression extends BaseExpression {
     public boolean evaluate(IHDSNode[] children) {
         String funcArgs = deriveFunctionArgs(children);
         String funcName = deriveFunctionName(children);
+        // TODO - really incorrect, we currently don't allow empty esi:assign.
         if ("exists".equals(funcName))
             return !funcArgs.isEmpty();
 
