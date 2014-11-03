@@ -21,10 +21,24 @@ public class ComparisonExpression extends BaseExpression {
 
 
         // Only handling equals case for now.  In the future, we could add more operators.
-        if (!"EQUALS".equals(children[COMPARE_OP_IDX].getName()))
-            throw new UnsupportedOperationException("Unknown operation: " + children[COMPARE_OP_IDX].getName());
+        if ("EQUALS".equals(children[COMPARE_OP_IDX].getName())) {
+            return equalComparision(children);
+        }
+
+        if ("MATCH_FUNC".equals(children[COMPARE_OP_IDX].getName()))
+            return matches(children);
+
+        throw new UnsupportedOperationException("Unknown operation: " + children[COMPARE_OP_IDX].getName());
+
+    }
+
+    private boolean equalComparision(IHDSNode[] children) {
         Comparable leftHandSide = eb.build(children[LHS_IDX]).evaluateToLiteral(children[LHS_IDX].getChildren());
         Comparable rightHandSide = eb.build(children[RHS_IDX]).evaluateToLiteral(children[RHS_IDX].getChildren());
         return leftHandSide.equals(rightHandSide);
+    }
+
+    private boolean matches(IHDSNode[] children) {
+        return false;
     }
 }

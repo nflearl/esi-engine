@@ -24,7 +24,7 @@ notExpr
     ;
 
 comparisonExpr
-    :   varOrLiteral ('==' varOrLiteral)*
+    :   varOrLiteral (EQUALS varOrLiteral | MATCH_FUNC matchValue)*
     ;
 
 varOrLiteral

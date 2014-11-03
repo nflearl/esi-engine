@@ -74,4 +74,14 @@
             <false/>
         </assert>
     </test>
+
+    <test name="Simple Matches Title">
+        <request>
+            <identifier>active:ESIExpressionRuntime</identifier>
+            <argument name="expression">$(REQUEST_PATH) matches '''(.*)/tags/([^/]*)'''</argument>
+        </request>
+        <assert>
+            <false/>
+        </assert>
+    </test>
 </testlist>
