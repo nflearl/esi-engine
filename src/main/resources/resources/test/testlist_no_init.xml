@@ -84,4 +84,25 @@
             <false/>
         </assert>
     </test>
+
+    <test name="Photo Gallery Matches">
+        <request>
+            <identifier>active:ESIExpressionRuntime</identifier>
+            <argument
+name="expression">$(REQUEST_PATH) matches '''(.*)/(article-[a-zA-Z0-9]*|articles|video-gallery|videos|photo-gallery|photos|roster|coaches|event|audio|cheerleaders|staff)/([^/]*)/([^/]*)(.*)'''</argument>
+        </request>
+        <assert>
+            <false/>
+        </assert>
+    </test>
+
+    <test name="Matchup Matches">
+        <request>
+            <identifier>active:ESIExpressionRuntime</identifier>
+            <argument name="expression">$(REQUEST_PATH) matches '''(matchup)/([^/]*)/([^/]*)/([^/]*)/([^/]*)'''</argument>
+        </request>
+        <assert>
+            <false/>
+        </assert>
+    </test>
 </testlist>
