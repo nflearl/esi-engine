@@ -163,4 +163,17 @@
             <true/>
         </assert>
     </test>
+
+    <test name="Simple Matches Title">
+        <request>
+            <header name="XXX-Scratch:esi/assign/REQUEST_PATH">
+                <literal type="string">/blah/blah/tags/</literal>
+            </header>
+            <identifier>active:ESIExpressionRuntime</identifier>
+            <argument name="expression">$(REQUEST_PATH) matches '''(.*)/tags/([^/]*)'''</argument>
+        </request>
+        <assert>
+            <true/>
+        </assert>
+    </test>
 </testlist>

@@ -2,9 +2,13 @@ package org.netkernelroc.esi.expression.domain;
 
 import org.netkernel.layer0.representation.IHDSNode;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class ComparisonExpression extends BaseExpression {
 
     public static final String NAME = "comparisonExpr";
+    public static final String TRIPLE_QUOTE = "'''";
     private static final int LHS_IDX = 0;
     private static final int COMPARE_OP_IDX = 1;
     private static final int RHS_IDX = 2;
@@ -22,7 +26,7 @@ public class ComparisonExpression extends BaseExpression {
 
         // Only handling equals case for now.  In the future, we could add more operators.
         if ("EQUALS".equals(children[COMPARE_OP_IDX].getName())) {
-            return equalComparision(children);
+            return equalComparison(children);
         }
 
         if ("MATCH_FUNC".equals(children[COMPARE_OP_IDX].getName()))
@@ -32,13 +36,21 @@ public class ComparisonExpression extends BaseExpression {
 
     }
 
-    private boolean equalComparision(IHDSNode[] children) {
+    private boolean equalComparison(IHDSNode[] children) {
         Comparable leftHandSide = eb.build(children[LHS_IDX]).evaluateToLiteral(children[LHS_IDX].getChildren());
         Comparable rightHandSide = eb.build(children[RHS_IDX]).evaluateToLiteral(children[RHS_IDX].getChildren());
         return leftHandSide.equals(rightHandSide);
     }
 
     private boolean matches(IHDSNode[] children) {
-        return false;
+        Comparable leftHandSide = eb.build(children[LHS_IDX]).evaluateToLiteral(children[LHS_IDX].getChildren());
+        String matchValue = children[RHS_IDX].getChildren()[0].getValue().toString();
+        if (matchValue.startsWith("'''"))
+            matchValue = matchValue.substring(TRIPLE_QUOTE.length());
+        if (matchValue.endsWith(TRIPLE_QUOTE))
+            matchValue = matchValue.substring(0, matchValue.length() - TRIPLE_QUOTE.length());
+        Pattern pat = Pattern.compile(matchValue);
+        Matcher matcher = pat.matcher(leftHandSide.toString());
+        return matcher.matches();
     }
 }
