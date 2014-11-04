@@ -49,6 +49,8 @@ public class ComparisonExpression extends BaseExpression {
             matchValue = matchValue.substring(TRIPLE_QUOTE.length());
         if (matchValue.endsWith(TRIPLE_QUOTE))
             matchValue = matchValue.substring(0, matchValue.length() - TRIPLE_QUOTE.length());
+        // TODO - use a resource to give the "matches" answer, allowing for caching of similar requests
+        // as the pattern and the leftHandSide will be a fairly small and constant set.
         Pattern pat = Pattern.compile(matchValue);
         Matcher matcher = pat.matcher(leftHandSide.toString());
         return matcher.matches();
