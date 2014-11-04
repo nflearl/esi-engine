@@ -44,15 +44,24 @@ public class ComparisonExpression extends BaseExpression {
 
     private boolean matches(IHDSNode[] children) {
         Comparable leftHandSide = eb.build(children[LHS_IDX]).evaluateToLiteral(children[LHS_IDX].getChildren());
-        String matchValue = children[RHS_IDX].getChildren()[0].getValue().toString();
-        if (matchValue.startsWith("'''"))
-            matchValue = matchValue.substring(TRIPLE_QUOTE.length());
-        if (matchValue.endsWith(TRIPLE_QUOTE))
-            matchValue = matchValue.substring(0, matchValue.length() - TRIPLE_QUOTE.length());
+        String matchValue = extractMatchValue(children[RHS_IDX]);
+        return computeMatches(leftHandSide, matchValue);
+    }
+
+    private boolean computeMatches(Comparable leftHandSide, String matchValue) {
         // TODO - use a resource to give the "matches" answer, allowing for caching of similar requests
         // as the pattern and the leftHandSide will be a fairly small and constant set.
         Pattern pat = Pattern.compile(matchValue);
         Matcher matcher = pat.matcher(leftHandSide.toString());
         return matcher.matches();
+    }
+
+    private String extractMatchValue(IHDSNode matchValueWrapperNode) {
+        String matchValue = matchValueWrapperNode.getChildren()[0].getValue().toString();
+        if (matchValue.startsWith("'''"))
+            matchValue = matchValue.substring(TRIPLE_QUOTE.length());
+        if (matchValue.endsWith(TRIPLE_QUOTE))
+            matchValue = matchValue.substring(0, matchValue.length() - TRIPLE_QUOTE.length());
+        return matchValue;
     }
 }
