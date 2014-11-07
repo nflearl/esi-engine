@@ -34,7 +34,6 @@ public class Include  extends ESIBase {
 
     @Override
     public void render(ESIContext esiContext, StringBuilder result) {
-        noKidPolicy();
         String convertedUrl = new VariableSubstituter(esiContext).substitute(srcUrl);
         result.append(esiContext.resolveInclude(convertedUrl));
     }
