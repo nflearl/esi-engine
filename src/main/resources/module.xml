@@ -108,6 +108,9 @@
         <import>
             <uri>urn:org:netkernel:client:http</uri>
         </import>
+        <import><!-- import the main space which we are testing -->
+            <uri>org.netkernelroc:esi:expression</uri>
+        </import>
     </rootspace>
 
     <rootspace name="esi_espression" uri="org.netkernelroc:esi:expression">

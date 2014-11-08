@@ -67,4 +67,12 @@ public class VariableSubstituter {
             return splitSrc[1];
         return trimmedParam;
     }
+
+    public boolean isReserved(String varName) {
+        return reservedVariable.containsKey(varName);
+    }
+
+    public String deriveNoKey(String varName) {
+        return reservedVariable.get(varName).render("", context);
+    }
 }

@@ -1,5 +1,7 @@
 package org.netkernelroc.esi.domain;
 
+import org.netkernelroc.esi.rendering.ESIContext;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -27,7 +29,7 @@ public abstract class ESIBase implements ESITag {
     }
 
     @Override
-    public boolean isChooseCase() {
+    public boolean isChooseCase(ESIContext esiContext) {
         return false;
     }
 }

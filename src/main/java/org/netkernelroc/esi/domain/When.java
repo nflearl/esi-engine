@@ -1,5 +1,6 @@
 package org.netkernelroc.esi.domain;
 
+import org.netkernelroc.esi.endpoints.ESITestContextImpl;
 import org.netkernelroc.esi.rendering.ESIContext;
 
 /**
@@ -39,11 +40,9 @@ public class When extends ESIBase {
     }
 
     @Override
-    public boolean isChooseCase() {
-        // TODO really evaluate the expression to see if pickMe() should return true.
+    public boolean isChooseCase(ESIContext esiContext) {
 
-        return false;
-//        throw new UnsupportedOperationException();
-
+        String matchNameVar = (matchName == null || matchName.isEmpty()) ? "MATCHES" : matchName;
+        return esiContext.invokeExpression(testExpression, matchNameVar);
     }
 }

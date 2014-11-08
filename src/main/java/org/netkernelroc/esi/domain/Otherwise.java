@@ -1,5 +1,7 @@
 package org.netkernelroc.esi.domain;
 
+import org.netkernelroc.esi.rendering.ESIContext;
+
 /**
  *
  */
@@ -15,7 +17,7 @@ public class Otherwise extends StartOrEnd {
     }
 
     @Override
-    public boolean isChooseCase() {
+    public boolean isChooseCase(ESIContext esiContext) {
         return true;
     }
 }

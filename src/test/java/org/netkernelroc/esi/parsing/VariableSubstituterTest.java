@@ -66,6 +66,21 @@ public class VariableSubstituterTest {
             public String getPath() {
                 return "REQUEST_PATH_VALUE";
             }
+
+            @Override
+            public String getHost() {
+                throw new UnsupportedOperationException();
+            }
+
+            @Override
+            public boolean invokeExpression(String expr, String matchName) {
+                throw new UnsupportedOperationException();
+            }
+
+            @Override
+            public void saveMatchValues(String[] values) {
+                throw new UnsupportedOperationException();
+            }
         };
     }
 

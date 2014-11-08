@@ -53,7 +53,17 @@ public class ComparisonExpression extends BaseExpression {
         // as the pattern and the leftHandSide will be a fairly small and constant set.
         Pattern pat = Pattern.compile(matchValue);
         Matcher matcher = pat.matcher(leftHandSide.toString());
-        return matcher.matches();
+        boolean retMatches = matcher.matches();
+        if (retMatches)
+            saveMatches(matcher);
+        return retMatches;
+    }
+
+    private void saveMatches(Matcher matcher) {
+        String groupMatches[] = new String[matcher.groupCount()];
+        for (int idx = 0; idx < groupMatches.length; idx++)
+            groupMatches[idx] = matcher.group(idx);
+        getEb().getEsiContext().saveMatchValues(groupMatches);
     }
 
     private String extractMatchValue(IHDSNode matchValueWrapperNode) {

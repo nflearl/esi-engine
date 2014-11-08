@@ -1,10 +1,14 @@
 package org.netkernelroc.esi.endpoints;
 
 import org.netkernel.layer0.nkf.*;
+import org.netkernelroc.esi.parsing.VariableSubstituter;
 import org.netkernelroc.esi.rendering.ESIContext;
 
 public class ESIContextImpl implements ESIContext {
     public static final String SCRATCH_SPACE = "scratch:esi/assign/";
+    public static final String SCRATCH_ESI_SAVED_MATCH_VALS = "scratch:esi/MATCHVALUES";
+
+    private final VariableSubstituter vs = new VariableSubstituter(this);
 
     private final INKFRequestContext context;
     private final String host;
@@ -39,9 +43,13 @@ public class ESIContextImpl implements ESIContext {
 
     @Override
     public String retrieveVariable(String variableName) {
-        INKFRequest req = null;
+        // TODO - more Tech Debt, arising from the fact that VariableSubstituter was built for raw text, but
+        // I also need to convert those variables in expressions.  In need of refactoring/simplifications.
+        if (vs.isReserved(variableName))
+            return vs.deriveNoKey(variableName);
+
         try {
-            req = context.createRequest(SCRATCH_SPACE + variableName);
+            INKFRequest req = context.createRequest(SCRATCH_SPACE + variableName);
             req.setVerb(INKFRequestReadOnly.VERB_EXISTS);
             boolean exists = (Boolean) context.issueRequest(req);
             if (!exists)
@@ -64,6 +72,7 @@ public class ESIContextImpl implements ESIContext {
             INKFRequest req = context.createRequest("active:httpGet");
             req.addArgument("url", url);
             req.setRepresentationClass(String.class);
+            @SuppressWarnings("UnnecessaryLocalVariable")
             String html = context.issueRequest(req).toString();
             return html;
         } catch (NKFException nkfe) {
@@ -84,6 +93,11 @@ public class ESIContextImpl implements ESIContext {
     @Override
     public String getPath() {
         return path;
+    }
+
+    @Override
+    public String getHost() {
+        return host;
     }
 
     private String stripSingleQuotes(String src) {
@@ -107,5 +121,43 @@ public class ESIContextImpl implements ESIContext {
             retStr = retStr.substring(0, retStr.length() -1);
 
         return retStr;
+    }
+
+    @Override
+    public boolean invokeExpression(String expr, String matchName) {
+        try {
+            context.sink("scratch:" + ESIContext.SCRATCH_SPACE_PATH, this);
+            INKFRequest req = context.createRequest("active:ESIExpressionRuntime");
+            req.setVerb(INKFRequestReadOnly.VERB_SOURCE);
+            req.addArgument("expression", expr);
+            req.setRepresentationClass(Boolean.class);
+            @SuppressWarnings("UnnecessaryLocalVariable")
+            Boolean result = (Boolean) context.issueRequest(req);
+            if (result)
+                populateMatchName(matchName);
+            return result;
+        } catch (NKFException nkfe) {
+            throw new RuntimeException(nkfe);
+        }
+    }
+
+    private void populateMatchName(String matchName) {
+        try {
+            String[] values = context.source(SCRATCH_ESI_SAVED_MATCH_VALS, String[].class);
+            for (int idx = 0; idx < values.length; idx++) {
+                assignVariable(matchName + "{" + idx + "}", values[idx]);
+            }
+        } catch (NKFException nkfe) {
+            throw new RuntimeException(nkfe);
+        }
+    }
+
+    @Override
+    public void saveMatchValues(String[] values) {
+        try {
+            context.sink(SCRATCH_ESI_SAVED_MATCH_VALS, values);
+        } catch (NKFException nkfe) {
+            throw new RuntimeException(nkfe);
+        }
     }
 }

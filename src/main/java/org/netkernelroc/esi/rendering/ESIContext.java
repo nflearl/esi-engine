@@ -14,4 +14,8 @@ public interface ESIContext {
     String lookupHttpParam(String key);
 
     String getPath();
+    String getHost();
+
+    boolean invokeExpression(String expr, String matchName);
+    void saveMatchValues(String[] values);
 }

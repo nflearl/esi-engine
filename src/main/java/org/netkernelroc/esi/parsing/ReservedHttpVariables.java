@@ -21,7 +21,7 @@ public enum ReservedHttpVariables {
     }, HTTP_HOST {
         @Override
         public String render(String argument, ESIContext context) {
-            throw new UnsupportedOperationException();
+            return context.getHost();
         }
     }, HTTP_REFERER {
         @Override
