@@ -166,7 +166,7 @@
 
     <test name="Simple Matches Title">
         <request>
-            <header name="XXX-Scratch:esi/assign/REQUEST_PATH">
+            <header name="XXX-Reserved:REQUEST_PATH">
                 <literal type="string">/blah/blah/tags/</literal>
             </header>
             <identifier>active:ESIExpressionRuntime</identifier>
@@ -180,7 +180,7 @@
 
     <test name="Photo Gallery Matches">
         <request>
-            <header name="XXX-Scratch:esi/assign/REQUEST_PATH">
+            <header name="XXX-Reserved:REQUEST_PATH">
                 <literal type="string">/blah/blah/photo-gallery/foo/bar</literal>
             </header>
             <identifier>active:ESIExpressionRuntime</identifier>
@@ -194,7 +194,7 @@
 
     <test name="Matchup Matches">
         <request>
-            <header name="XXX-Scratch:esi/assign/REQUEST_PATH">
+            <header name="XXX-Reserved:REQUEST_PATH">
                 <literal type="string">matchup/foo/bar/zzz/yyy</literal>
             </header>
             <identifier>active:ESIExpressionRuntime</identifier>

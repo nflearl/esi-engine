@@ -13,10 +13,10 @@ public class OrExpression extends BaseExpression {
     }
 
     @Override
-    boolean evaluateManyChildren(IHDSNode[] children) {
+    Comparable evaluateManyChildren(IHDSNode[] children) {
 
-        boolean orResult = eb.build(children[0]).evaluate(children[0].getChildren());
-        if (orResult)
+        Comparable orResult = eb.build(children[0]).evaluate(children[0].getChildren());
+        if (convertToBool(orResult))
             return true;
 
         // Terminal case
@@ -26,6 +26,6 @@ public class OrExpression extends BaseExpression {
         if (!"OR".equals(children[1].getName()))
             throw new UnsupportedOperationException("Unknown operation: " + children[1].getName());
 
-        return evaluate(Arrays.copyOfRange(children, 2, children.length));
+        return convertToBool(evaluate(Arrays.copyOfRange(children, 2, children.length)));
     }
 }

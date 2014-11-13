@@ -143,6 +143,10 @@ public class ESIContextImpl implements ESIContext {
 
     private void populateMatchName(String matchName) {
         try {
+            // No match values saved (probably wasn't a match expression)
+            if (!context.exists(SCRATCH_ESI_SAVED_MATCH_VALS))
+                return;
+
             String[] values = context.source(SCRATCH_ESI_SAVED_MATCH_VALS, String[].class);
             for (int idx = 0; idx < values.length; idx++) {
                 assignVariable(matchName + "{" + idx + "}", values[idx]);

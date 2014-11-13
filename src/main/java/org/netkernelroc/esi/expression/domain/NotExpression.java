@@ -11,13 +11,13 @@ public class NotExpression extends BaseExpression {
     }
 
     @Override
-    boolean evaluateManyChildren(IHDSNode[] children) {
+    Comparable evaluateManyChildren(IHDSNode[] children) {
 
         if (children.length != 2)
             throw new IllegalStateException("Expected 2 kids, received: " + children.length);
         if (!"NOT".equals(children[0].getName()))
             throw new UnsupportedOperationException("Unknown operation: " + children[0].getName());
-        boolean result = eb.build(children[1]).evaluate(children[1].getChildren());
-        return !result;
+        Comparable result = eb.build(children[1]).evaluate(children[1].getChildren());
+        return !convertToBool(result);
     }
 }

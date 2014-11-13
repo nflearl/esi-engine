@@ -15,14 +15,14 @@ public class VarOrLiteral extends BaseExpression {
     }
 
     @Override
-    public Comparable evaluateToLiteral(IHDSNode[] children) {
+    public Comparable evaluate(IHDSNode[] children) {
         switch (children.length) {
             case 0:
                 return evaluateZeroChildren();
 
             // Common case of a wrapper grammar node simply deferring to its child.
             case 1:
-                return eb.build(children[0]).evaluateToLiteral(children[0].getChildren());
+                return eb.build(children[0]).evaluate(children[0].getChildren());
 
             default:
                 return evaluateManyChildren(children);

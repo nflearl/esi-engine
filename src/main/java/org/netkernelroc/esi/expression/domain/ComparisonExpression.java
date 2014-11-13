@@ -18,7 +18,7 @@ public class ComparisonExpression extends BaseExpression {
     }
 
     @Override
-    boolean evaluateManyChildren(IHDSNode[] children) {
+    Comparable evaluateManyChildren(IHDSNode[] children) {
 
         if (children.length != 3)
             throw new IllegalStateException("Expected three parts");
@@ -37,13 +37,13 @@ public class ComparisonExpression extends BaseExpression {
     }
 
     private boolean equalComparison(IHDSNode[] children) {
-        Comparable leftHandSide = eb.build(children[LHS_IDX]).evaluateToLiteral(children[LHS_IDX].getChildren());
-        Comparable rightHandSide = eb.build(children[RHS_IDX]).evaluateToLiteral(children[RHS_IDX].getChildren());
+        Comparable leftHandSide = eb.build(children[LHS_IDX]).evaluate(children[LHS_IDX].getChildren());
+        Comparable rightHandSide = eb.build(children[RHS_IDX]).evaluate(children[RHS_IDX].getChildren());
         return leftHandSide.equals(rightHandSide);
     }
 
     private boolean matches(IHDSNode[] children) {
-        Comparable leftHandSide = eb.build(children[LHS_IDX]).evaluateToLiteral(children[LHS_IDX].getChildren());
+        Comparable leftHandSide = eb.build(children[LHS_IDX]).evaluate(children[LHS_IDX].getChildren());
         String matchValue = extractMatchValue(children[RHS_IDX]);
         return computeMatches(leftHandSide, matchValue);
     }

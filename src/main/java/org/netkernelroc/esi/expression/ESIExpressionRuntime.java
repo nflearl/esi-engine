@@ -21,7 +21,7 @@ public class ESIExpressionRuntime extends StandardAccessorImpl {
         try {
             ESIContext esiContext = (ESIContext) context.source("scratch:" + ESIContext.SCRATCH_SPACE_PATH);
             IHDSNode result = (IHDSNode) context.issueRequest(antlrReq);
-            boolean computedResult = new ExpressionBuilder(esiContext).build(result).evaluate(result.getChildren());
+            Comparable computedResult = new ExpressionBuilder(esiContext).build(result).evaluate(result.getChildren());
             context.createResponseFrom(computedResult);
         } catch (Exception ex) {
             throw ex;

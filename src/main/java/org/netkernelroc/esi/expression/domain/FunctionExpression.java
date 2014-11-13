@@ -11,7 +11,7 @@ public class FunctionExpression extends BaseExpression {
     }
 
     @Override
-    public boolean evaluate(IHDSNode[] children) {
+    public Comparable evaluate(IHDSNode[] children) {
         String funcArgs = deriveFunctionArgs(children);
         String funcName = deriveFunctionName(children);
         // TODO - really incorrect, we currently don't allow empty esi:assign.
@@ -28,7 +28,7 @@ public class FunctionExpression extends BaseExpression {
         for (IHDSNode child : children) {
             if ("functionArgs".equals(child.getName())) {
                 ESIExpression expression = getEb().build(child);
-                return expression.evaluateToLiteral(child.getChildren()).toString();
+                return expression.evaluate(child.getChildren()).toString();
             }
         }
 

@@ -17,7 +17,7 @@ public class VariableExpression extends VariableOrLiteralExpression {
     }
 
     @Override
-    boolean evaluateManyChildren(IHDSNode[] children) {
+    Comparable evaluateManyChildren(IHDSNode[] children) {
         List<IHDSNode> remainders = new ArrayList<IHDSNode>(children.length);
         // Throw out parens and try again.
         for (IHDSNode child : children) {

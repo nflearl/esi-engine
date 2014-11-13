@@ -20,7 +20,7 @@ public class VarWithArg extends BaseExpression {
     }
 
     @Override
-    public Comparable evaluateToLiteral(IHDSNode[] children) {
+    public Comparable evaluate(IHDSNode[] children) {
         List<String> vars = new ArrayList<String>(children.length);
 
         for (IHDSNode child : children) {
@@ -31,6 +31,7 @@ public class VarWithArg extends BaseExpression {
         if (vars.size() != 2)
             throw new IllegalStateException("Expecting a variable and it's argument.  Instead, got this many: " + vars.size());
 
+        @SuppressWarnings("UnnecessaryLocalVariable")
         String retStr = vs.resolve(vars.get(0), vars.get(1));
         return retStr;
     }

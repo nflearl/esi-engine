@@ -10,16 +10,16 @@ public abstract class BaseExpression implements ESIExpression {
         eb = builder;
     }
 
-    boolean evaluateZeroChildren() {
+    Comparable evaluateZeroChildren() {
         throw new UnsupportedOperationException();
     }
 
-    boolean evaluateManyChildren(IHDSNode[] children) {
+    Comparable evaluateManyChildren(IHDSNode[] children) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public boolean evaluate(IHDSNode[] children) {
+    public Comparable evaluate(IHDSNode[] children) {
         switch (children.length) {
             case 0:
                 return evaluateZeroChildren();
@@ -33,12 +33,15 @@ public abstract class BaseExpression implements ESIExpression {
         }
     }
 
-    @Override
-    public Comparable evaluateToLiteral(IHDSNode[] children) {
-        return evaluate(children);
-    }
-
     protected ExpressionBuilder getEb() {
         return eb;
+    }
+
+    protected boolean convertToBool(Comparable comp) {
+        if (comp instanceof Boolean)
+            return (Boolean) comp;
+
+        String compValue = comp.toString();
+        return Boolean.parseBoolean(compValue);
     }
 }

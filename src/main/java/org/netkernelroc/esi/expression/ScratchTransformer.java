@@ -14,6 +14,7 @@ import java.util.Set;
 public class ScratchTransformer extends TransparentOverlayImpl {
 
     public static final String SCRATCH_PREFIX = "XXX-Scratch:";
+    public static final String RESERVED_KEYWORD_PREFIX = "XXX-Reserved:";
 
     public ScratchTransformer() {
         this.declareThreadSafe();
@@ -21,6 +22,7 @@ public class ScratchTransformer extends TransparentOverlayImpl {
 
     @Override
     public void onRequest(String s, INKFRequestContext inkfRequestContext) throws Exception {
+        String path = "";
         // Initialize all the test parameters into the scratch space
         Set<String> keySet = inkfRequestContext.getThisRequest().getHeaderKeys();
         for (String key : keySet) {
@@ -29,10 +31,18 @@ public class ScratchTransformer extends TransparentOverlayImpl {
                 Object scratchValue = inkfRequestContext.getThisRequest().getHeaderValue(key);
                 inkfRequestContext.sink(scratchKey, scratchValue);
             }
+
+            if (key.startsWith(RESERVED_KEYWORD_PREFIX)) {
+                String reservedWord = key.substring(RESERVED_KEYWORD_PREFIX.length());
+                if ("REQUEST_PATH".equals(reservedWord)) {
+                    path = inkfRequestContext.getThisRequest().getHeaderValue(key).toString();
+                }
+            }
         }
 
         // Initialize the context.
-        inkfRequestContext.sink("scratch:" + ESIContext.SCRATCH_SPACE_PATH, new ESITestContextImpl(inkfRequestContext));
+        inkfRequestContext.sink("scratch:" + ESIContext.SCRATCH_SPACE_PATH,
+                new ESITestContextImpl(inkfRequestContext, path));
 
         Utils.delegateRequestInto(getDelegateSpace(), inkfRequestContext);
     }

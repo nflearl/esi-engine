@@ -15,17 +15,17 @@ public class AndExpression extends BaseExpression {
     }
 
     @Override
-    boolean evaluateManyChildren(IHDSNode[] children) {
+    Comparable evaluateManyChildren(IHDSNode[] children) {
 
         if (children.length != 3)
             throw new IllegalStateException("Expected three parts");
 
         if (!"AND".equals(children[AND_IDX].getName()))
             throw new UnsupportedOperationException("Unknown operation: " + children[AND_IDX].getName());
-        boolean leftHandSide = eb.build(children[LHS_IDX]).evaluate(children[LHS_IDX].getChildren());
-        if (!leftHandSide)
+        Comparable leftHandSide = eb.build(children[LHS_IDX]).evaluate(children[LHS_IDX].getChildren());
+        if (!convertToBool(leftHandSide))
             return false;
-        boolean rightHandSide = eb.build(children[RHS_IDX]).evaluate(children[RHS_IDX].getChildren());
-        return rightHandSide;
+        Comparable rightHandSide = eb.build(children[RHS_IDX]).evaluate(children[RHS_IDX].getChildren());
+        return convertToBool(rightHandSide);
     }
 }

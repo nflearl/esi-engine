@@ -4,9 +4,9 @@ import org.netkernel.layer0.nkf.INKFRequestContext;
 
 public class ESITestContextImpl extends ESIContextImpl {
 
-    public ESITestContextImpl(INKFRequestContext context) {
+    public ESITestContextImpl(INKFRequestContext context, String path) {
         // TODO - nulls are bad here, figure out something else.
-        super(context, null, null, null);
+        super(context, null, null, path);
     }
 
     @Override
