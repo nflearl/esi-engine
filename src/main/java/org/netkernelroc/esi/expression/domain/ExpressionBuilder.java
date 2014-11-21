@@ -96,6 +96,20 @@ public class ExpressionBuilder {
                 return new NotExpression(ExpressionBuilder.this, curNode);
             }
         });
+
+        exprMap.put(VarID.NAME, new ExpressionFactory() {
+            @Override
+            public ESIExpression build(ExpressionBuilder eb, IHDSNode curNode) {
+                return new VarID(ExpressionBuilder.this, curNode);
+            }
+        });
+
+        exprMap.put(NumberExpression.NAME, new ExpressionFactory() {
+            @Override
+            public ESIExpression build(ExpressionBuilder eb, IHDSNode curNode) {
+                return new NumberExpression(ExpressionBuilder.this, curNode);
+            }
+        });
     }
 
     public ESIExpression build(IHDSNode root) {

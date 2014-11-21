@@ -124,6 +124,22 @@ public class ESIContextImpl implements ESIContext {
     }
 
     @Override
+    public String resolveExpression(String expr) {
+        try {
+            context.sink("scratch:" + ESIContext.SCRATCH_SPACE_PATH, this);
+            INKFRequest req = context.createRequest("active:ESIExpressionRuntime");
+            req.setVerb(INKFRequestReadOnly.VERB_SOURCE);
+            req.addArgument("expression", expr);
+            req.setRepresentationClass(String.class);
+            @SuppressWarnings("UnnecessaryLocalVariable")
+            String result = (String) context.issueRequest(req);
+            return result;
+        } catch (NKFException nkfe) {
+            throw new RuntimeException(nkfe);
+        }
+    }
+
+    @Override
     public boolean invokeExpression(String expr, String matchName) {
         try {
             context.sink("scratch:" + ESIContext.SCRATCH_SPACE_PATH, this);

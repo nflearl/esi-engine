@@ -73,6 +73,11 @@ public class VariableSubstituterTest {
             }
 
             @Override
+            public String resolveExpression(String expr) {
+                throw new UnsupportedOperationException();
+            }
+
+            @Override
             public boolean invokeExpression(String expr, String matchName) {
                 throw new UnsupportedOperationException();
             }

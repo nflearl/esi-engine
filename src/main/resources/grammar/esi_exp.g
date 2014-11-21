@@ -41,7 +41,7 @@ variableExpr
     | OPEN_PAREN booleanExp CLOSE_PAREN
     ;
 
-varWithArg : VAR_ID OPEN_ARG VAR_ID CLOSE_ARG ;
+varWithArg : VAR_ID OPEN_ARG (VAR_ID | Number) CLOSE_ARG ;
 varWithArgQuoted : VAR_ID OPEN_QUOTED_ARG VAR_ID CLOSE_QUOTED_ARG ;
 
 matchValue : MATCH_VALUE_REGEX ;
@@ -53,13 +53,20 @@ functionExpr
 FunctionName :
     'exists'
      | 'is_empty'
+     | 'substr'
      ;
 
 functionArgs
     :   '()'
-    |  OPEN_PAREN VAR_ID CLOSE_PAREN
-    |  OPEN_PAREN variableExpr CLOSE_PAREN
+    |  OPEN_PAREN functionArgumentElem (',' functionArgumentElem)* CLOSE_PAREN
     ;
+
+functionArgumentElem
+    	: VAR_ID
+    	| Number
+    	| variableExpr
+    	| literalExpr
+    	;
 
 EQUALS 	:	 '==' ;
 MATCH_FUNC     : 'matches' ;

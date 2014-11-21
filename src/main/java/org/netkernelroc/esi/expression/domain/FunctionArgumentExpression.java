@@ -11,18 +11,30 @@ public class FunctionArgumentExpression extends BaseExpression {
     }
 
     @Override
-    public Comparable evaluate() {
+    Comparable evaluateZeroChildren() {
+        return "";
+    }
 
-        for (IHDSNode child : getNode().getChildren()) {
-            if ("VAR_ID".equals(child.getName()))
-                return getEb().getEsiContext().retrieveVariable(child.getValue().toString());
-            if ("variableExpr".equals(child.getName())) {
-                ESIExpression expr = getEb().build(child);
-                return expr.evaluate();
+    @Override
+    Comparable evaluateManyChildren(IHDSNode[] children) {
+        // single argument bracketed by parenthesis
+        if (children.length == 3)
+        {
+            return getEb().build(children[1]).evaluate();
+        }
+
+        if (children.length % 2 == 0)
+            throw new IllegalStateException("Expected odd number of children: " + children.length);
+
+        FunctionArgs retArg = new FunctionArgs(children.length / 2);
+        int idx = 0;
+        for (IHDSNode child : children) {
+            // Add the odd ones, the evens are syntax tokens
+            if (idx++ % 2 == 1) {
+                retArg.addArg(getEb().build(child).evaluate());
             }
         }
 
-        throw new IllegalStateException("Could not find variableExpr.");
-
+        return retArg;
     }
 }

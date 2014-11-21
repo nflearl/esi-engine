@@ -16,6 +16,7 @@ public interface ESIContext {
     String getPath();
     String getHost();
 
+    String resolveExpression(String expr);
     boolean invokeExpression(String expr, String matchName);
     void saveMatchValues(String[] values);
 }

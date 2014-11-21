@@ -26,7 +26,7 @@ public class Assign extends ESIBase {
 
     @Override
     public void render(ESIContext esiContext, StringBuilder results) {
-        String substitutedValue =  new VariableSubstituter(esiContext).substitute(value);
+        String substitutedValue = esiContext.resolveExpression(value);
         esiContext.assignVariable(name, substitutedValue);
     }
 }
