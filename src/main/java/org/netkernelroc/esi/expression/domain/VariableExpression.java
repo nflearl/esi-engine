@@ -12,8 +12,8 @@ public class VariableExpression extends VariableOrLiteralExpression {
 
     // [1] is VAR_ID, then we need to do a lookup.
 
-    public VariableExpression(ExpressionBuilder builder) {
-        super(builder);
+    public VariableExpression(ExpressionBuilder builder, IHDSNode curNode) {
+        super(builder, curNode);
     }
 
     @Override
@@ -32,7 +32,7 @@ public class VariableExpression extends VariableOrLiteralExpression {
 
         IHDSNode child = remainders.get(0);
         ESIExpression expr = getEb().build(child);
-        return expr.evaluate(child.getChildren());
+        return expr.evaluate();
     }
 
     @Override

@@ -5,9 +5,11 @@ import org.netkernel.layer0.representation.IHDSNode;
 public abstract class BaseExpression implements ESIExpression {
 
     protected final ExpressionBuilder eb;
+    protected final IHDSNode node;
 
-    protected BaseExpression(ExpressionBuilder builder) {
+    protected BaseExpression(ExpressionBuilder builder, IHDSNode curNode) {
         eb = builder;
+        node = curNode;
     }
 
     Comparable evaluateZeroChildren() {
@@ -19,14 +21,15 @@ public abstract class BaseExpression implements ESIExpression {
     }
 
     @Override
-    public Comparable evaluate(IHDSNode[] children) {
+    public Comparable evaluate() {
+        IHDSNode[] children = node.getChildren();
         switch (children.length) {
             case 0:
                 return evaluateZeroChildren();
 
             // Common case of a wrapper grammar node simply deferring to its child.
             case 1:
-                return eb.build(children[0]).evaluate(children[0].getChildren());
+                return eb.build(children[0]).evaluate();
 
             default:
                 return evaluateManyChildren(children);
@@ -35,6 +38,10 @@ public abstract class BaseExpression implements ESIExpression {
 
     protected ExpressionBuilder getEb() {
         return eb;
+    }
+
+    protected IHDSNode getNode() {
+        return node;
     }
 
     protected boolean convertToBool(Comparable comp) {

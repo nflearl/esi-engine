@@ -10,19 +10,21 @@ public class VarOrLiteral extends BaseExpression {
 
     public static final String NAME = "varOrLiteral";
 
-    public VarOrLiteral(ExpressionBuilder builder) {
-        super(builder);
+    public VarOrLiteral(ExpressionBuilder builder, IHDSNode curNode) {
+        super(builder, curNode);
     }
 
     @Override
-    public Comparable evaluate(IHDSNode[] children) {
+    public Comparable evaluate() {
+
+        IHDSNode[] children = getNode().getChildren();
         switch (children.length) {
             case 0:
                 return evaluateZeroChildren();
 
             // Common case of a wrapper grammar node simply deferring to its child.
             case 1:
-                return eb.build(children[0]).evaluate(children[0].getChildren());
+                return eb.build(children[0]).evaluate();
 
             default:
                 return evaluateManyChildren(children);

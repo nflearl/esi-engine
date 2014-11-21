@@ -6,8 +6,8 @@ public class LiteralExpression extends VariableOrLiteralExpression {
 
     public static final String NAME = "literalExpr";
 
-    public LiteralExpression(ExpressionBuilder builder) {
-        super(builder);
+    public LiteralExpression(ExpressionBuilder builder, IHDSNode curNode) {
+        super(builder, curNode);
     }
 
     @Override

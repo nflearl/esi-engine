@@ -13,14 +13,15 @@ public class VarWithArg extends BaseExpression {
 
     private final VariableSubstituter vs;
 
-    public VarWithArg(ExpressionBuilder builder) {
-        super(builder);
+    public VarWithArg(ExpressionBuilder builder, IHDSNode curNode) {
+        super(builder, curNode);
 
         vs = new VariableSubstituter(builder.getEsiContext());
     }
 
     @Override
-    public Comparable evaluate(IHDSNode[] children) {
+    public Comparable evaluate() {
+        IHDSNode[] children = getNode().getChildren();
         List<String> vars = new ArrayList<String>(children.length);
 
         for (IHDSNode child : children) {

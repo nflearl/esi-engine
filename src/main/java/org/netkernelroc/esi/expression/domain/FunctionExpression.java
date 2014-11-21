@@ -6,12 +6,13 @@ public class FunctionExpression extends BaseExpression {
 
     public static final String NAME = "functionExpr";
 
-    public FunctionExpression(ExpressionBuilder builder) {
-        super(builder);
+    public FunctionExpression(ExpressionBuilder builder, IHDSNode curNode) {
+        super(builder, curNode);
     }
 
     @Override
-    public Comparable evaluate(IHDSNode[] children) {
+    public Comparable evaluate() {
+        IHDSNode[] children = getNode().getChildren();
         String funcArgs = deriveFunctionArgs(children);
         String funcName = deriveFunctionName(children);
         // TODO - really incorrect, we currently don't allow empty esi:assign.
@@ -28,7 +29,7 @@ public class FunctionExpression extends BaseExpression {
         for (IHDSNode child : children) {
             if ("functionArgs".equals(child.getName())) {
                 ESIExpression expression = getEb().build(child);
-                return expression.evaluate(child.getChildren()).toString();
+                return expression.evaluate().toString();
             }
         }
 

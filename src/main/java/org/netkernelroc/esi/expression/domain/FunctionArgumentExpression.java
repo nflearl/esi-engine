@@ -6,19 +6,19 @@ public class FunctionArgumentExpression extends BaseExpression {
 
     public static final String NAME = "functionArgs";
 
-    public FunctionArgumentExpression(ExpressionBuilder builder) {
-        super(builder);
+    public FunctionArgumentExpression(ExpressionBuilder builder, IHDSNode curNode) {
+        super(builder, curNode);
     }
 
     @Override
-    public Comparable evaluate(IHDSNode[] children) {
+    public Comparable evaluate() {
 
-        for (IHDSNode child : children) {
+        for (IHDSNode child : getNode().getChildren()) {
             if ("VAR_ID".equals(child.getName()))
                 return getEb().getEsiContext().retrieveVariable(child.getValue().toString());
             if ("variableExpr".equals(child.getName())) {
                 ESIExpression expr = getEb().build(child);
-                return expr.evaluate(child.getChildren());
+                return expr.evaluate();
             }
         }
 

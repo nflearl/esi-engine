@@ -13,8 +13,8 @@ public class ComparisonExpression extends BaseExpression {
     private static final int COMPARE_OP_IDX = 1;
     private static final int RHS_IDX = 2;
 
-    public ComparisonExpression(ExpressionBuilder builder) {
-        super(builder);
+    public ComparisonExpression(ExpressionBuilder builder, IHDSNode curNode) {
+        super(builder, curNode);
     }
 
     @Override
@@ -37,13 +37,13 @@ public class ComparisonExpression extends BaseExpression {
     }
 
     private boolean equalComparison(IHDSNode[] children) {
-        Comparable leftHandSide = eb.build(children[LHS_IDX]).evaluate(children[LHS_IDX].getChildren());
-        Comparable rightHandSide = eb.build(children[RHS_IDX]).evaluate(children[RHS_IDX].getChildren());
+        Comparable leftHandSide = eb.build(children[LHS_IDX]).evaluate();
+        Comparable rightHandSide = eb.build(children[RHS_IDX]).evaluate();
         return leftHandSide.equals(rightHandSide);
     }
 
     private boolean matches(IHDSNode[] children) {
-        Comparable leftHandSide = eb.build(children[LHS_IDX]).evaluate(children[LHS_IDX].getChildren());
+        Comparable leftHandSide = eb.build(children[LHS_IDX]).evaluate();
         String matchValue = extractMatchValue(children[RHS_IDX]);
         return computeMatches(leftHandSide, matchValue);
     }

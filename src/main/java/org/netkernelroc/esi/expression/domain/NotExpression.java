@@ -6,8 +6,8 @@ public class NotExpression extends BaseExpression {
 
     public static final String NAME = "notExpr";
 
-    public NotExpression(ExpressionBuilder builder) {
-        super(builder);
+    public NotExpression(ExpressionBuilder builder, IHDSNode curNode) {
+        super(builder, curNode);
     }
 
     @Override
@@ -17,7 +17,7 @@ public class NotExpression extends BaseExpression {
             throw new IllegalStateException("Expected 2 kids, received: " + children.length);
         if (!"NOT".equals(children[0].getName()))
             throw new UnsupportedOperationException("Unknown operation: " + children[0].getName());
-        Comparable result = eb.build(children[1]).evaluate(children[1].getChildren());
+        Comparable result = eb.build(children[1]).evaluate();
         return !convertToBool(result);
     }
 }

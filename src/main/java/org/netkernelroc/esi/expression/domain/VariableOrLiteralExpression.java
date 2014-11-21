@@ -4,12 +4,14 @@ import org.netkernel.layer0.representation.IHDSNode;
 
 public abstract class VariableOrLiteralExpression extends BaseExpression {
 
-    public VariableOrLiteralExpression(ExpressionBuilder builder) {
-        super(builder);
+    public VariableOrLiteralExpression(ExpressionBuilder builder, IHDSNode curNode) {
+        super(builder, curNode);
     }
 
     @Override
-    public Comparable evaluate(IHDSNode[] children) {
+    public Comparable evaluate() {
+
+        IHDSNode[] children = getNode().getChildren();
 
         for (IHDSNode child : children) {
             if ("VAR_ID".equals(child.getName()))
@@ -17,7 +19,7 @@ public abstract class VariableOrLiteralExpression extends BaseExpression {
 
             if ("varWithArgQuoted".equals(child.getName())) {
                 ESIExpression expr = getEb().build(child);
-                return expr.evaluate(child.getChildren());
+                return expr.evaluate();
             }
         }
 
@@ -25,7 +27,7 @@ public abstract class VariableOrLiteralExpression extends BaseExpression {
         // the middle element is the true expression.
         if (children.length == 3) {
             ESIExpression expr = getEb().build(children[1]);
-            return expr.evaluate(children[1].getChildren());
+            return expr.evaluate();
         }
 
         return "";

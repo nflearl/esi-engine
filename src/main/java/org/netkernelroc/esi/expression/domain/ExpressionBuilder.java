@@ -20,91 +20,91 @@ public class ExpressionBuilder {
     private void mapInit() {
         exprMap.put(BooleanExpression.NAME, new ExpressionFactory() {
             @Override
-            public ESIExpression build(ExpressionBuilder eb) {
-                return new BooleanExpression(ExpressionBuilder.this);
+            public ESIExpression build(ExpressionBuilder eb, IHDSNode curNode) {
+                return new BooleanExpression(ExpressionBuilder.this, curNode);
             }
         });
         exprMap.put(ComparisonExpression.NAME, new ExpressionFactory() {
             @Override
-            public ESIExpression build(ExpressionBuilder eb) {
-                return new ComparisonExpression(ExpressionBuilder.this);
+            public ESIExpression build(ExpressionBuilder eb, IHDSNode curNode) {
+                return new ComparisonExpression(ExpressionBuilder.this, curNode);
             }
         });
         exprMap.put(VarOrLiteral.NAME, new ExpressionFactory() {
             @Override
-            public ESIExpression build(ExpressionBuilder eb) {
-                return new VarOrLiteral(ExpressionBuilder.this);
+            public ESIExpression build(ExpressionBuilder eb, IHDSNode curNode) {
+                return new VarOrLiteral(ExpressionBuilder.this, curNode);
             }
         });
         exprMap.put(VariableExpression.NAME, new ExpressionFactory() {
             @Override
-            public ESIExpression build(ExpressionBuilder eb) {
-                return new VariableExpression(ExpressionBuilder.this);
+            public ESIExpression build(ExpressionBuilder eb, IHDSNode curNode) {
+                return new VariableExpression(ExpressionBuilder.this, curNode);
             }
         });
         exprMap.put(VariableExpression.ALT_NAME, new ExpressionFactory() {
             @Override
-            public ESIExpression build(ExpressionBuilder eb) {
-                return new VariableExpression(ExpressionBuilder.this);
+            public ESIExpression build(ExpressionBuilder eb, IHDSNode curNode) {
+                return new VariableExpression(ExpressionBuilder.this, curNode);
             }
         });
         exprMap.put(VarWithArg.NAME, new ExpressionFactory() {
             @Override
-            public ESIExpression build(ExpressionBuilder eb) {
-                return new VarWithArg(ExpressionBuilder.this);
+            public ESIExpression build(ExpressionBuilder eb, IHDSNode curNode) {
+                return new VarWithArg(ExpressionBuilder.this, curNode);
             }
         });
         exprMap.put(VarWithArg.ALT_NAME, new ExpressionFactory() {
             @Override
-            public ESIExpression build(ExpressionBuilder eb) {
-                return new VarWithArg(ExpressionBuilder.this);
+            public ESIExpression build(ExpressionBuilder eb, IHDSNode curNode) {
+                return new VarWithArg(ExpressionBuilder.this, curNode);
             }
         });
         exprMap.put(LiteralExpression.NAME, new ExpressionFactory() {
             @Override
-            public ESIExpression build(ExpressionBuilder eb) {
-                return new LiteralExpression(ExpressionBuilder.this);
+            public ESIExpression build(ExpressionBuilder eb, IHDSNode curNode) {
+                return new LiteralExpression(ExpressionBuilder.this, curNode);
             }
         });
         exprMap.put(FunctionExpression.NAME, new ExpressionFactory() {
             @Override
-            public ESIExpression build(ExpressionBuilder eb) {
-                return new FunctionExpression(ExpressionBuilder.this);
+            public ESIExpression build(ExpressionBuilder eb, IHDSNode curNode) {
+                return new FunctionExpression(ExpressionBuilder.this, curNode);
             }
         });
         exprMap.put(FunctionArgumentExpression.NAME, new ExpressionFactory() {
             @Override
-            public ESIExpression build(ExpressionBuilder eb) {
-                return new FunctionArgumentExpression(ExpressionBuilder.this);
+            public ESIExpression build(ExpressionBuilder eb, IHDSNode curNode) {
+                return new FunctionArgumentExpression(ExpressionBuilder.this, curNode);
             }
         });
         exprMap.put(AndExpression.NAME, new ExpressionFactory() {
             @Override
-            public ESIExpression build(ExpressionBuilder eb) {
-                return new AndExpression(ExpressionBuilder.this);
+            public ESIExpression build(ExpressionBuilder eb, IHDSNode curNode) {
+                return new AndExpression(ExpressionBuilder.this, curNode);
             }
         });
         exprMap.put(OrExpression.NAME, new ExpressionFactory() {
             @Override
-            public ESIExpression build(ExpressionBuilder eb) {
-                return new OrExpression(ExpressionBuilder.this);
+            public ESIExpression build(ExpressionBuilder eb, IHDSNode curNode) {
+                return new OrExpression(ExpressionBuilder.this, curNode);
             }
         });
         exprMap.put(NotExpression.NAME, new ExpressionFactory() {
             @Override
-            public ESIExpression build(ExpressionBuilder eb) {
-                return new NotExpression(ExpressionBuilder.this);
+            public ESIExpression build(ExpressionBuilder eb, IHDSNode curNode) {
+                return new NotExpression(ExpressionBuilder.this, curNode);
             }
         });
     }
 
     public ESIExpression build(IHDSNode root) {
         ExpressionFactory factory = exprMap.get(root.getName());
-        return (factory == null) ? new DefaultExpressionHandler(this) : factory.build(this);
+        return (factory == null) ? new DefaultExpressionHandler(this, root) : factory.build(this, root);
     }
 
     private interface ExpressionFactory {
-        ESIExpression build(ExpressionBuilder eb);
+        ESIExpression build(ExpressionBuilder eb, IHDSNode curNode);
     }
 
     public ESIContext getEsiContext() {

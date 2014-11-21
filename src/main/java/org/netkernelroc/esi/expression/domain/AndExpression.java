@@ -10,8 +10,8 @@ public class AndExpression extends BaseExpression {
     private static final int AND_IDX = 1;
     private static final int RHS_IDX = 2;
 
-    public AndExpression(ExpressionBuilder builder) {
-        super(builder);
+    public AndExpression(ExpressionBuilder builder, IHDSNode curNode) {
+        super(builder, curNode);
     }
 
     @Override
@@ -22,10 +22,10 @@ public class AndExpression extends BaseExpression {
 
         if (!"AND".equals(children[AND_IDX].getName()))
             throw new UnsupportedOperationException("Unknown operation: " + children[AND_IDX].getName());
-        Comparable leftHandSide = eb.build(children[LHS_IDX]).evaluate(children[LHS_IDX].getChildren());
+        Comparable leftHandSide = eb.build(children[LHS_IDX]).evaluate();
         if (!convertToBool(leftHandSide))
             return false;
-        Comparable rightHandSide = eb.build(children[RHS_IDX]).evaluate(children[RHS_IDX].getChildren());
+        Comparable rightHandSide = eb.build(children[RHS_IDX]).evaluate();
         return convertToBool(rightHandSide);
     }
 }

@@ -2,30 +2,32 @@ package org.netkernelroc.esi.expression.domain;
 
 import org.netkernel.layer0.representation.IHDSNode;
 
-import java.util.Arrays;
-
 public class OrExpression extends BaseExpression {
 
     public static final String NAME = "orExp";
 
-    public OrExpression(ExpressionBuilder builder) {
-        super(builder);
+    public OrExpression(ExpressionBuilder builder, IHDSNode curNode) {
+        super(builder, curNode);
     }
 
     @Override
     Comparable evaluateManyChildren(IHDSNode[] children) {
 
-        Comparable orResult = eb.build(children[0]).evaluate(children[0].getChildren());
-        if (convertToBool(orResult))
-            return true;
+        int idx = 0;
+        int count = children.length;
+        while (count > 0) {
+            Comparable orResult = eb.build(children[idx]).evaluate();
+            if (convertToBool(orResult))
+                return true;
 
-        // Terminal case
-        if (children.length == 1 || children.length < 3)
-            return false;
+            String childName = children[idx + 1].getName();
+            if (count > 1 && !"OR".equals(childName))
+                throw new UnsupportedOperationException("Unknown operation: " + childName);
 
-        if (!"OR".equals(children[1].getName()))
-            throw new UnsupportedOperationException("Unknown operation: " + children[1].getName());
+            idx += 2;
+            count -= 2;
+        }
 
-        return convertToBool(evaluate(Arrays.copyOfRange(children, 2, children.length)));
+        return false;
     }
 }
