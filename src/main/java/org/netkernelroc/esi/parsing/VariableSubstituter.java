@@ -53,7 +53,12 @@ public class VariableSubstituter {
         if (reservedVariable.containsKey(varName)) {
             return reservedVariable.get(varName).render(lookupKey, context);
         } else {
-            return context.retrieveVariable(varName);
+            String retStr = context.retrieveVariable(varName);
+            // Hack for the matcher variables.
+            if (retStr.isEmpty())
+                return context.retrieveVariable(varName + '{' + lookupKey + '}');
+
+            return retStr;
         }
     }
 

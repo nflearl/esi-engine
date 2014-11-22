@@ -204,4 +204,18 @@
             <true/>
         </assert>
     </test>
+
+    <test name="Substr on matchValues">
+        <request>
+            <header name="XXX-Scratch:esi/assign/matchValues{1}">
+                <literal type="string">Hello</literal>
+            </header>
+            matchValues{1}
+            <identifier>active:ESIExpressionRuntime</identifier>
+            <argument name="expression">$substr($(matchValues{1}), 1)</argument>
+        </request>
+        <assert>
+            <stringEquals>ello</stringEquals>
+        </assert>
+    </test>
 </testlist>
