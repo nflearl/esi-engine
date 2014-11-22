@@ -109,11 +109,10 @@ name="expression">$(REQUEST_PATH) matches '''(.*)/(article-[a-zA-Z0-9]*|articles
     <test name="Substr on matchValues">
         <request>
             <identifier>active:ESIExpressionRuntime</identifier>
-            <!--<argument name="expression">$substr($(matchValues{1}), 1)</argument>-->
-            <argument name="expression">$substr('foo', 1)</argument>
+            <argument name="expression">$substr($(matchValues{1}), 1)</argument>
         </request>
         <assert>
-            <stringEquals>oo</stringEquals>
+            <stringEquals/>
         </assert>
     </test>
 

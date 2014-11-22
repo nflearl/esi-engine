@@ -27,6 +27,9 @@ public class VarWithArg extends BaseExpression {
         for (IHDSNode child : children) {
              if ("VAR_ID".equals(child.getName()))
                  vars.add(child.getValue().toString());
+
+            if ("Number".equals(child.getName()))
+                vars.add(child.getValue().toString());
         }
 
         if (vars.size() != 2)

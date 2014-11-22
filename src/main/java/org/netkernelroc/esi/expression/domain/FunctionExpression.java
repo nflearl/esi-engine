@@ -57,8 +57,15 @@ public class FunctionExpression extends BaseExpression {
             throw new IllegalStateException("Substring must have 2 or 3 arguments.  Received: " + len);
         String source = args.getArgs()[0].toString();
         int beginIdx = (Integer) args.getArgs()[1];
+        // Not enough source to get a substring.
+        if (beginIdx >= source.length())
+            return "";
+
         if (len == 3) {
             int endIdx = (Integer) args.getArgs()[2];
+            // Not enough source to work with, get what we can.
+            if (endIdx > source.length())
+                endIdx = source.length();
             return source.substring(beginIdx, endIdx);
         }
         String retStr = source.substring(beginIdx);
