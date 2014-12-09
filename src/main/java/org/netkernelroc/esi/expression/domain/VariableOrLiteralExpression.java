@@ -21,6 +21,9 @@ public abstract class VariableOrLiteralExpression extends BaseExpression {
                 ESIExpression expr = getEb().build(child);
                 return expr.evaluate();
             }
+
+            if ("SINGLE_WS".equals(child.getName()))
+                return " ";
         }
 
         // TODO - do this one a little better, it's a little brittle assuming that

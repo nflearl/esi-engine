@@ -27,6 +27,12 @@ public class FunctionExpression extends BaseExpression {
         if ("substr".equals(funcName))
             return deriveSubstring((FunctionArgs) funcArgs);
 
+        if ("lower".equals(funcName))
+            return funcArgs.toString().toLowerCase();
+
+        if ("replace".equals(funcName))
+            return deriveReplace((FunctionArgs) funcArgs);
+
         throw new UnsupportedOperationException("Unknown function name: " + funcName);
     }
 
@@ -70,5 +76,15 @@ public class FunctionExpression extends BaseExpression {
         }
         String retStr = source.substring(beginIdx);
         return retStr;
+    }
+
+    private String deriveReplace(FunctionArgs funcArgs) {
+        if (funcArgs.getArgs().length != 3)
+            throw new IllegalStateException("replace must have 3 arguments.  Received: " + funcArgs.getArgs().length);
+
+        String strToReplace = funcArgs.getArgs()[0].toString();
+        String fromChars = funcArgs.getArgs()[1].toString();
+        String toChars = funcArgs.getArgs()[2].toString();
+        return strToReplace.replace(fromChars, toChars);
     }
 }

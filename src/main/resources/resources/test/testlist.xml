@@ -218,4 +218,17 @@
             <stringEquals>ello</stringEquals>
         </assert>
     </test>
+
+    <test name="Lower Replace Empty Quote">
+        <request>
+            <header name="XXX-Scratch:esi/assign/channelName">
+                <literal type="string">This is a BiZarro Channel NAME.</literal>
+            </header>
+            <identifier>active:ESIExpressionRuntime</identifier>
+            <argument name="expression">$lower($replace($(channelName), ' ', '-'))</argument>
+        </request>
+        <assert>
+            <stringEquals>this-is-a-bizarro-channel-name.</stringEquals>
+        </assert>
+    </test>
 </testlist>

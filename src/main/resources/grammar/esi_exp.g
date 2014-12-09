@@ -33,7 +33,8 @@ varOrLiteral
     |   variableExpr
     ;
 
-literalExpr : QUOTE VAR_ID QUOTE
+literalExpr : SINGLE_WS
+    | QUOTE VAR_ID QUOTE
     | VAR_ID ;
 variableExpr
     : OPEN_VAR VAR_ID CLOSE_PAREN           // $(HTTP_HOST)
@@ -55,6 +56,8 @@ FunctionName :
     'exists'
      | 'is_empty'
      | 'substr'
+     | 'replace'
+     | 'lower'
      ;
 
 functionArgs
@@ -67,10 +70,12 @@ functionArgumentElem
     	| Number
     	| variableExpr
     	| literalExpr
+    	| functionExpr
     	;
 
 EQUALS 	:	 '==' ;
 MATCH_FUNC     : 'matches' ;
+SINGLE_WS   : '\' \'';
 TRIPLE_QUOTE : '\'\'\'' ;
 QUOTE       : '\'' ;
 OPEN_VAR  : '$(' ;
@@ -80,7 +85,7 @@ OPEN_ARG : '{' ;
 CLOSE_ARG : '}' ;
 OPEN_QUOTED_ARG : '{\'' ;
 CLOSE_QUOTED_ARG : '\'}' ;
-VAR_ID      : ('a'..'z'|'A'..'Z'|'_')+ ;      // match identifiers
+VAR_ID      : ('a'..'z'|'A'..'Z'|'_'|'-')+ ;      // match identifiers
 
 AND : '&&' | '&' ;
 OR : '|' | '||' ;

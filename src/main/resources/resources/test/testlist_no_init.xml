@@ -136,4 +136,14 @@ name="expression">$(REQUEST_PATH) matches '''(.*)/(article-[a-zA-Z0-9]*|articles
         </assert>
     </test>
 
+    <test name="Lower Replace Empty Quote">
+        <request>
+            <identifier>active:ESIExpressionRuntime</identifier>
+            <argument name="expression">$lower($replace($(channelName), ' ', '-'))</argument>
+        </request>
+        <assert>
+            <stringEquals/>
+        </assert>
+    </test>
+
 </testlist>
