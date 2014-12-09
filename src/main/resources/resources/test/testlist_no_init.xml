@@ -116,4 +116,14 @@ name="expression">$(REQUEST_PATH) matches '''(.*)/(article-[a-zA-Z0-9]*|articles
         </assert>
     </test>
 
+    <test name="Literal No Processing">
+        <request>
+            <identifier>active:ESIExpressionRuntime</identifier>
+            <argument name="expression">mystate</argument>
+        </request>
+        <assert>
+            <stringEquals>mystate</stringEquals>
+        </assert>
+    </test>
+
 </testlist>

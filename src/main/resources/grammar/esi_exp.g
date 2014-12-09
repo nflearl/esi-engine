@@ -33,7 +33,8 @@ varOrLiteral
     |   variableExpr
     ;
 
-literalExpr : QUOTE VAR_ID QUOTE ;
+literalExpr : QUOTE VAR_ID QUOTE
+    | VAR_ID ;
 variableExpr
     : OPEN_VAR VAR_ID CLOSE_PAREN           // $(HTTP_HOST)
     | OPEN_VAR varWithArg CLOSE_PAREN    // $(QUERY_STRING{param})
