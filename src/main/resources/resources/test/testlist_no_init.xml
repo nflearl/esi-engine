@@ -126,4 +126,14 @@ name="expression">$(REQUEST_PATH) matches '''(.*)/(article-[a-zA-Z0-9]*|articles
         </assert>
     </test>
 
+    <test name="Literal Empty Quote">
+        <request>
+            <identifier>active:ESIExpressionRuntime</identifier>
+            <argument name="expression">''</argument>
+        </request>
+        <assert>
+            <stringEquals/>
+        </assert>
+    </test>
+
 </testlist>

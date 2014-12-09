@@ -19,6 +19,12 @@ public class ESIExpressionRuntime extends StandardAccessorImpl {
         antlrReq.addArgumentByValue("startrule", "eval");
 
         try {
+            // Couldn't easily get the expression language to deal with '' among all the other cases.
+            // Check for it directly here and strip.
+            if ("''".equals(expression) || expression.isEmpty()) {
+                context.createResponseFrom("");
+                return;
+            }
             ESIContext esiContext = (ESIContext) context.source("scratch:" + ESIContext.SCRATCH_SPACE_PATH);
             IHDSNode result = (IHDSNode) context.issueRequest(antlrReq);
             Comparable computedResult = new ExpressionBuilder(esiContext).build(result).evaluate();
